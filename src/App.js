@@ -1,24 +1,150 @@
-import React from "react";
-import { BrowserRouter,Switch,Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./Components/Home";
+import Header from "./Components/Header";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
-
+import {
+  MenuItem,
+  FormControl,
+  Select,
+  Card,
+  CardContent,
+} from "@material-ui/core";
+import InfoBox from "../src/Components/InfoBox";
+import Map from "../src/Components/Map";
+import Table from "../src/Components/Table";
+import { sortData } from "./util";
 
 function App() {
+  //STATES -> how to write variable in react
+  const [countries, setCountries] = useState([]); // a state has astate variable and a state function that updates the value of state
+  const [country, setCountry] = useState("worldwide");
+  const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]);
+  //UseEffect--> runs a piece of code based on given conditions
+
+  useEffect(() => {
+    fetch("https://disease.sh/v3/covid-19/all")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    // []-> it runs the code will run when the componet is loaded and not again after.
+    //[countries]-> runs the code onece or when ever the country variable changes.
+    // async -> send a requst , wait for it , do sometinhg with the info
+
+    const getCountriesData = async () => {
+      await fetch("https://disease.sh/v3/covid-19/countries")
+        .then((response) => response.json())
+        .then((data) => {
+          const countries = data.map((countryFromData) => ({
+            name: countryFromData.country,
+            value: countryFromData.countryInfo.iso2,
+          }));
+
+          const sortedData = sortData(data);
+          setTableData(sortedData);
+          setCountries(countries);
+        });
+    };
+
+    getCountriesData();
+  }, []);
+
+  const onCountryChange = async (event) => {
+    const countryCode = event.target.value;
+
+    const url =
+      countryCode === "worldwide"
+        ? "https://disease.sh/v3/covid-19/all"
+        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+
+    await fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountry(countryCode);
+        // All of the data from the country response
+        setCountryInfo(data);
+      });
+    //World Wide Statisitics
+    //to fetch world wide statistics -> https://disease.sh/v3/covid-19/all
+    //when the country is selected from drop down we have to make a call to desiease.sh to fetch data of that counrty
+    // api -> https://disease.sh/v3/covid-19/countries/{country.name}
+  };
+
+  console.log("COUNTRY INFO>>>>>", countryInfo);
+
   return (
     <div className="app">
       <BrowserRouter>
         <Switch>
           <Route path="/login">
-            <Login/>
+            <Login />
           </Route>
           <Route path="/signup">
             <Signup />
           </Route>
           <Route path="/">
-            <Home />
+            <div className="app__left">
+              {/*Header */}
+              <div className="app__header">
+                <Header />
+              </div>
+
+              {/* Title = select input dropdown */}
+              <div className="app__">
+                <FormControl className="app__dropdown">
+                  <Select
+                    varient="outlined"
+                    onChange={onCountryChange}
+                    value={country}
+                  >
+                    <MenuItem value="worldwide">World-Wide</MenuItem>
+                    {/* Loop through all the countries and show the names of country in dropdown */}
+                    {countries.map((country) => (
+                      <MenuItem value={country.value}>{country.name}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <div className="app__stats">
+                  {/* Info Boxs Active cases*/}
+                  <h2>Stats</h2>
+                  <InfoBox
+                    title="Coronavirus cases"
+                    cases={countryInfo.todayCases}
+                    total={countryInfo.cases}
+                  ></InfoBox>
+                  {/* Info Boxs recoverd*/}
+                  <InfoBox
+                    title="Recoverd"
+                    cases={countryInfo.todayRecovered}
+                    total={countryInfo.recovered}
+                  ></InfoBox>
+                  {/* Info Boxs Deaths*/}
+                  <InfoBox
+                    title="Deaths"
+                    cases={countryInfo.todayDeaths}
+                    total={countryInfo.deaths}
+                  ></InfoBox>
+                </div>
+              </div>
+              {/* Map */}
+              <Map />
+            </div>
+            <Card className="app__right">
+              <CardContent>
+                {/* Table of effected peope around world */}
+                <h3>Live Cases by country</h3>
+                <Table countries={tableData} />
+                {/* graph for above mentioned table */}
+                <h3>Wordlwide new cases</h3>
+              </CardContent>
+            </Card>
           </Route>
         </Switch>
       </BrowserRouter>
