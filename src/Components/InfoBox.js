@@ -3,8 +3,8 @@ import {Card, CardContent, Typography} from "@material-ui/core";
 
 function InfoBox({title,cases,total}) {
     return (
-        <Card className="infoBox">
-           <CardContent>
+        <Card style= {{width: '15rem'}}className="infoBox">
+           <CardContent style={{ justifyContent:'center'}}>
                {/* title corona virus cases*/}
                <Typography className="infoBox__title" color="textSecondary" >
                    {title}

@@ -15,6 +15,8 @@ import InfoBox from "../src/Components/InfoBox";
 import Map from "../src/Components/Map";
 import Table from "../src/Components/Table";
 import { sortData } from "./util";
+import "leaflet/dist/leaflet.css";
+import LineGraph from "./Components/LineGraph";
 
 function App() {
   //STATES -> how to write variable in react
@@ -22,6 +24,9 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([]);
   //UseEffect--> runs a piece of code based on given conditions
 
   useEffect(() => {
@@ -48,6 +53,7 @@ function App() {
 
           const sortedData = sortData(data);
           setTableData(sortedData);
+          setMapCountries(data); // all the response we have as fetchCountries
           setCountries(countries);
         });
     };
@@ -69,6 +75,8 @@ function App() {
         setCountry(countryCode);
         // All of the data from the country response
         setCountryInfo(data);
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
       });
     //World Wide Statisitics
     //to fetch world wide statistics -> https://disease.sh/v3/covid-19/all
@@ -80,74 +88,82 @@ function App() {
 
   return (
     <div className="app">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/">
-            <div className="app__left">
+      <div className="app__header">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/">
               {/*Header */}
-              <div className="app__header">
-                <Header />
-              </div>
+              <Header />
+              <div className="app__section">
+                <div className="app__left">
+                  {/* Title = select input dropdown */}
+                  {/* <div className="app__"> */}
+                  <FormControl className="app__dropdown">
+                    <Select
+                      varient="outlined"
+                      onChange={onCountryChange}
+                      value={country}
+                    >
+                      <MenuItem value="worldwide">World-Wide</MenuItem>
+                      {/* Loop through all the countries and show the names of country in dropdown */}
+                      {countries.map((country) => (
+                        <MenuItem value={country.value}>
+                          {country.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
 
-              {/* Title = select input dropdown */}
-              <div className="app__">
-                <FormControl className="app__dropdown">
-                  <Select
-                    varient="outlined"
-                    onChange={onCountryChange}
-                    value={country}
-                  >
-                    <MenuItem value="worldwide">World-Wide</MenuItem>
-                    {/* Loop through all the countries and show the names of country in dropdown */}
-                    {countries.map((country) => (
-                      <MenuItem value={country.value}>{country.name}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                <div className="app__stats">
-                  {/* Info Boxs Active cases*/}
-                  <h2>Stats</h2>
-                  <InfoBox
-                    title="Coronavirus cases"
-                    cases={countryInfo.todayCases}
-                    total={countryInfo.cases}
-                  ></InfoBox>
-                  {/* Info Boxs recoverd*/}
-                  <InfoBox
-                    title="Recoverd"
-                    cases={countryInfo.todayRecovered}
-                    total={countryInfo.recovered}
-                  ></InfoBox>
-                  {/* Info Boxs Deaths*/}
-                  <InfoBox
-                    title="Deaths"
-                    cases={countryInfo.todayDeaths}
-                    total={countryInfo.deaths}
-                  ></InfoBox>
+                  <div className="app__stats">
+                    {/* Info Boxs Active cases*/}
+                    {/* <h2>Stats</h2> */}
+                    <InfoBox
+                      title="Coronavirus cases"
+                      cases={countryInfo.todayCases}
+                      total={countryInfo.cases}
+                    ></InfoBox>
+                    {/* Info Boxs recoverd*/}
+                    <InfoBox
+                      title="Recoverd"
+                      cases={countryInfo.todayRecovered}
+                      total={countryInfo.recovered}
+                    ></InfoBox>
+                    {/* Info Boxs Deaths*/}
+                    <InfoBox
+                      title="Deaths"
+                      cases={countryInfo.todayDeaths}
+                      total={countryInfo.deaths}
+                    ></InfoBox>
+                  </div>
+                  {/* </div> */}
+                  {/* Map */}
+                  <Map
+                    countries={mapCountries}
+                    center={mapCenter}
+                    zoom={mapZoom}
+                  />
                 </div>
+                <Card className="app__right">
+                  <CardContent>
+                    {/* Table of effected peope around world */}
+                    <h3>Live Cases by country</h3>
+                    <Table countries={tableData} />
+                    {/* graph for above mentioned table */}
+                    <h3>Wordlwide new cases</h3>
+                    <LineGraph />
+                  </CardContent>
+                </Card>
               </div>
-              {/* Map */}
-              <Map />
-            </div>
-            <Card className="app__right">
-              <CardContent>
-                {/* Table of effected peope around world */}
-                <h3>Live Cases by country</h3>
-                <Table countries={tableData} />
-                {/* graph for above mentioned table */}
-                <h3>Wordlwide new cases</h3>
-              </CardContent>
-            </Card>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
