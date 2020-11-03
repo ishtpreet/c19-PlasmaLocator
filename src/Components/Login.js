@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import "../Css/Login.css";
 import logo from "../images/C-19_logo.png";
+import Header from './Header';
 
 function Login() {
   return (
+    <div>
+    < Header />
     <div className="login">
       <Link to="/">
         <img className="login__logo" src={logo} alt="" />
@@ -30,6 +33,7 @@ function Login() {
           <button className="login__registerButton">Create new account</button>
         </Link>
       </div>
+    </div>
     </div>
   );
 }

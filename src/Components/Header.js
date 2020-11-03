@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/C-19_logo.png";
 import "../Css/Header.css";
@@ -12,22 +13,22 @@ function Header() {
       </div>
       <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={"/"} className="nav-link" activeClassName="active">
               C-19 Plasma Locator
               </Link>
             </li>
             </div>
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <NavLink to={"/login"} className="nav-link" activeClassName="active">
                   Login
-                </Link>
+                </NavLink>
               </li>
 
               <li className="nav-item">
-                <Link to={"/signup"} className="nav-link">
+                <NavLink to={"/signup"} className="nav-link" activeClassName="active">
                   Sign Up
-                </Link>
+                </NavLink>
               </li>
             </div>
             </nav>
