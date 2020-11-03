@@ -1,18 +1,3 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.header__left{
-    display: flex;
-}
-
-.header__left > h2 {
-    padding-top: 10px;
-}
-
 .header__logo{
-    height: 65px;
-    padding-right: 20px;
-    padding-bottom: 20px;
+    height: 40px;
 }

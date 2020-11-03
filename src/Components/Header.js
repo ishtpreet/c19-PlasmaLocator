@@ -5,19 +5,32 @@ import "../Css/Header.css";
 
 function Header() {
   return (
-    <div className="header">
-      <div className="header__left">
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div className="navbar-brand">
         <img className="header__logo" src={logo} alt="" />
-        <h2>C-19 Plasma Locator</h2>
       </div>
-      <div className="header__right">
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
-        <Link to="/signup">
-          <button>SignUp</button>
-        </Link>
-      </div>
+      <div className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link to={"/home"} className="nav-link">
+              C-19 Plasma Locator
+              </Link>
+            </li>
+            </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">
+                  Login
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/signup"} className="nav-link">
+                  Sign Up
+                </Link>
+              </li>
+            </div>
+            </nav>
     </div>
   );
 }
