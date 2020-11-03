@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import "../Css/Signup.css";
 import logo from "../images/C-19_logo.png";
+import Header from './Header';
 
 function Signup() {
   return (
+    <div>
+      <Header />
     <div className="signup">
       <Link to="/">
         <img className="signup__logo" src={logo} alt="" />
@@ -30,6 +33,7 @@ function Signup() {
           Privacy Notice, our Cookies Notice and our Internet-Based ads Notice
         </p>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
@@ -87,19 +88,19 @@ function App() {
   console.log("COUNTRY INFO>>>>>", countryInfo);
 
   return (
-    <div className="app">
+     <div className="app">
       <div className="app__header">
-        <BrowserRouter>
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/">
-              {/*Header */}
-              <Header />
+         <BrowserRouter>
+         <Switch>
+             <Route path="/login">
+               <Login />
+             </Route>
+             <Route path="/signup">
+               <Signup />
+             </Route>
+             <Route path="/">
+               {/*Header */}
+               <Header />
               <div className="app__section">
                 <div className="app__left">
                   {/* Title = select input dropdown */}
