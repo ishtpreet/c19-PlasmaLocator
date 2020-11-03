@@ -62,7 +62,7 @@ handleLogin(e) {
     AuthService.login(this.state.username, this.state.password).then(
       () => {
         // this.context.router.push("/profile")
-        window.location.replace("http://localhost:3000/profile");
+        window.location.replace("http://"+window.location.hostname+":"+window.location.port+"/profile");
         //  window.location.reload();
       },
       error => {
