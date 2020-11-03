@@ -8,14 +8,16 @@ function Header() {
     <div className="header">
       <div className="header__left">
         <img className="header__logo" src={logo} alt="" />
-        <h2>C-19 Plasma Locator</h2>
+      </div>
+      <div className="header__heading">
+       <h1>C-19 Plasma Locator</h1>
       </div>
       <div className="header__right">
         <Link to="/login">
-          <button>Login</button>
+          <button className="header__right__login">Login</button>
         </Link>
         <Link to="/signup">
-          <button>SignUp</button>
+          <button className="header__right__signup">SignUp</button>
         </Link>
       </div>
     </div>
