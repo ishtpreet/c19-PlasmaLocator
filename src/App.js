@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
+import Profile from './Components/Profile';
 import {
   MenuItem,
   FormControl,
@@ -19,7 +20,9 @@ import { sortData } from "./util";
 import "leaflet/dist/leaflet.css";
 import LineGraph from "./Components/LineGraph";
 
+
 function App() {
+  
   //STATES -> how to write variable in react
   const [countries, setCountries] = useState([]); // a state has astate variable and a state function that updates the value of state
   const [country, setCountry] = useState("worldwide");
@@ -97,6 +100,9 @@ function App() {
              </Route>
              <Route path="/signup">
                <Signup />
+             </Route>
+             <Route path="/profile">
+               <Profile />
              </Route>
              <Route path="/">
                {/*Header */}
