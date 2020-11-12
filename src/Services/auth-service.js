@@ -29,6 +29,12 @@ class AuthService {
       password
     });
   }
+  forgetpassword(email) {
+    return axios.get("http://54.91.216.255:8080/fpass/" + email)
+    .then(response =>{
+      return response.data;
+    })
+  }
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
