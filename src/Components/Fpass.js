@@ -2,20 +2,9 @@ import React, { Component } from 'react';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from 'validator';
 
 import Header from './Header';
 import AuthService from '../Services/auth-service';
-
-const email = value => {
-  if(!isEmail(value)){
-    return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
-      </div>
-    );
-  }
-}
 
 const required = value => {
     if (!value) {
@@ -26,28 +15,47 @@ const required = value => {
       );
     }
   };
+  const vpassword = value => {
+    if (value.length < 6 || value.length > 40) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          The password must be between 6 and 40 characters.
+        </div>
+      );
+    }
+  };
   
-  export default class ForgetPassword extends Component {
+  export default class Fpass extends Component {
   constructor(props) {
           super(props);
-    this.handleForgetPassword = this.handleForgetPassword.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
+            
+    this.handleForgotPassword = this.handleForgotPassword.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
   
     this.state = {
-      email: "",
+      password: "",
       loading: false,
       message: "",
       successful: false
     };
   }
+  componentDidMount(){
+      const Token = this.props.match.params.token;
+      console.log(Token);
+  }
   
-  onChangeEmail(e) {
+//   validateToken = token => {
+//       if(token===''){
+//           this.props.history.push('/login');
+//       }
+//   }
+  onChangePassword(e) {
     this.setState({
-      email: e.target.value
+      password: e.target.value
     });
   }
   
-  handleForgetPassword(e) {
+  handleForgotPassword(e) {
     e.preventDefault();
   
     this.setState({
@@ -58,9 +66,9 @@ const required = value => {
     this.form.validateAll();
   
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.forgetpassword(this.state.email).then(data =>
+      AuthService.forgotpassword(this.state.password, this.props.match.params.token).then(data =>
          {
-             this.setState({successful: true, loading: false, message: data.message})
+             this.setState({successful: true, loading: false, message: 'Password Updated Successfully!'})
              console.log(data);
           // this.context.router.push("/profile")
         //   window.location.replace("http://"+window.location.hostname+"/profile");
@@ -86,8 +94,14 @@ const required = value => {
         loading: false
       });
     }
+    
   }
-  
+//   componentDidUpdate(){
+//     const { token } = this.props.match.params.token;
+//     this.setState({
+//         token: token
+//     });
+//   }
   render() {
     return (
       <div>
@@ -96,20 +110,20 @@ const required = value => {
         <div className="card card-container">
   
           <Form
-            onSubmit={this.handleForgetPassword}
+            onSubmit={this.handleForgotPassword}
             ref={c => {
               this.form = c;
             }}
           >
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="password">Password</label>
               <Input
-                type="text"
+                type="password"
                 className="form-control"
-                name="email"
-                value={this.state.email}
-                onChange={this.onChangeEmail}
-                validations={[required, email]}
+                name="password"
+                value={this.state.password}
+                onChange={this.onChangePassword}
+                validations={[required, vpassword]}
               />
             </div> 
             <div className="form-group">

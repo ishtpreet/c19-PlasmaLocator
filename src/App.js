@@ -16,6 +16,7 @@ import { sortData } from "./util";
 import "leaflet/dist/leaflet.css";
 import LineGraph from "./Components/LineGraph";
 import ForgetPassword from './Components/ForgetPassword';
+import Fpass from './Components/Fpass';
 
 
 function App() {
@@ -95,6 +96,7 @@ function App() {
            <Route path="/forgetpass">
              <ForgetPassword />
            </Route>
+           <Route path="/forgotpass/:token"  render={(props) => <Fpass {...props} />} />
              <Route path="/login">
                <Login />
              </Route>
