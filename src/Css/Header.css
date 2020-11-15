@@ -1,3 +1,24 @@
 .header__logo{
     height: 40px;
 }
+.nav-item .dropdown-menu {
+    background: #343a40;
+  }
+  
+  .nav-item .dropdown-item {
+    color: #ffffff;
+  }
+  
+   .nav-item .dropdown-item:hover {
+    background: #343a40;
+  } 
+  .customNavLink{
+      color: #ffffff80;
+  }
+  .customNavLink:hover{
+      text-decoration: none;
+      color: #ffffff;
+  }
+  .customNavItem{
+    background: "#343a40";
+  }
