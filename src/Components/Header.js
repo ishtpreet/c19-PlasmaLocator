@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import AuthService from '../Services/auth-service';
 import logo from "../images/C-19_logo.png";
@@ -27,7 +28,6 @@ class Header extends Component {
       });
     }
   }
-
   logOut() {
     AuthService.logout();
   }
@@ -63,15 +63,17 @@ class Header extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-              <NavLink to={"/login"} className="nav-link" activeClassName="active">
-                  Login
-                </NavLink>
+              <NavDropdown title="Donor" id="nav-dropdown-Donor">
+        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/login'}>Login</NavLink></NavDropdown.Item>
+        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/signup'}>SignUp</NavLink></NavDropdown.Item>
+      </NavDropdown>
               </li>
 
               <li className="nav-item">
-              <NavLink to={"/signup"} className="nav-link" activeClassName="active">
-                  Sign Up
-                </NavLink>
+              <NavDropdown title="Recipient" id="nav-dropdown-Recipient">
+        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/login'}>Login</NavLink></NavDropdown.Item>
+        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/signup'}>SignUp</NavLink></NavDropdown.Item>
+      </NavDropdown>
               </li>
             </div>
           )}
