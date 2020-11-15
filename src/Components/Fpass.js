@@ -1,3 +1,4 @@
+//To reset the password after clicking the link received in email.
 import React, { Component } from 'react';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
