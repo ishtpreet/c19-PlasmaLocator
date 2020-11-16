@@ -10,7 +10,7 @@ export default class Profile extends Component {
     this.state = {
       redirect: null,
       userReady: false,
-      currentUser: { username: "" }
+      currentUser: { username: "" },
     };
   }
 
@@ -18,38 +18,37 @@ export default class Profile extends Component {
     const currentUser = AuthService.getCurrentUser();
 
     if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
+    this.setState({ currentUser: currentUser, userReady: true });
   }
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
+      return <Redirect to={this.state.redirect} />;
     }
 
     const { currentUser } = this.state;
 
     return (
-        <div>
-          <Header />
-      <div className="container">
-        {(this.state.userReady) ?
-        <div>
-            <br />
-        <header className="jumbotron">
-          <h3>
-            <strong>{currentUser.username}</strong> Profile
-          </h3>
-        </header>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.email}
-        </p>
-      </div>: null}
-      </div>
+      <div>
+        <Header />
+        <div className="container">
+          {this.state.userReady ? (
+            <div>
+              <br />
+              <header className="jumbotron">
+                <h3>
+                  <strong>{currentUser.username}</strong> Profile
+                </h3>
+              </header>
+              <p>
+                <strong>Id:</strong> {currentUser.id}
+              </p>
+              <p>
+                <strong>Email:</strong> {currentUser.email}
+              </p>
+            </div>
+          ) : null}
+        </div>
       </div>
     );
   }

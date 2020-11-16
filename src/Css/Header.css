@@ -35,36 +35,35 @@
   padding-bottom: 20px;
 }
 
-.header__right__login :hover{
+.header__right__login :hover {
   padding: 20px 20px 20px 20px;
 }
 
 .header__right__signup {
   justify-self: end;
-
 }
 
-.header__logo{
-    height: 40px;
+.header__logo {
+  height: 40px;
 }
 .nav-item .dropdown-menu {
-    background: #343a40;
-  }
-  
-  .nav-item .dropdown-item {
-    color: #ffffff;
-  }
-  
-   .nav-item .dropdown-item:hover {
-    background: #343a40;
-  } 
-  .customNavLink{
-      color: #ffffff80;
-  }
-  .customNavLink:hover{
-      text-decoration: none;
-      color: #ffffff;
-  }
-  .customNavItem{
-    background: "#343a40";
-  }
+  background: #343a40;
+}
+
+.nav-item .dropdown-item {
+  color: #ffffff;
+}
+
+.nav-item .dropdown-item:hover {
+  background: #343a40;
+}
+.customNavLink {
+  color: #ffffff80;
+}
+.customNavLink:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+.customNavItem {
+  background: "#343a40";
+}
