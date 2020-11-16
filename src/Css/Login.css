@@ -30,3 +30,8 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+.forget {
+  float: right;
+  padding-bottom: 20px;
+  font-size: 14px;
+}

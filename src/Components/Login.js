@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-// import { Redirect } from "react-router-dom";
 
 import AuthService from '../Services/auth-service';
 import "../Css/Login.css";
-// import logo from "../images/C-19_logo.png";
 import Header from './Header';
 
 
@@ -62,7 +60,7 @@ handleLogin(e) {
     AuthService.login(this.state.username, this.state.password).then(
       () => {
         // this.context.router.push("/profile")
-        window.location.replace("http://"+window.location.hostname+":"+window.location.port+"/profile");
+        window.location.replace("http://"+window.location.hostname+"/profile");
         //  window.location.reload();
       },
       error => {
@@ -121,6 +119,11 @@ render() {
               onChange={this.onChangePassword}
               validations={[required]}
             />
+          </div>
+          <div className="forget">
+          <Link to={"/forgetpass"} className="nav-link">
+                  Forgot Password?
+                </Link>
           </div>
 
           <div className="form-group">

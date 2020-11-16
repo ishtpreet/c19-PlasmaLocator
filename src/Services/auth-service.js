@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://54.91.216.255:8080/api/auth/";
 
+
 class AuthService {
   login(username, password) {
     return axios
@@ -26,6 +27,18 @@ class AuthService {
     return axios.post(API_URL + "signup", {
       username,
       email,
+      password
+    });
+  }
+  forgetpassword(email) {
+    return axios.get("http://54.91.216.255:8080/fpass/" + email)
+    .then(response =>{
+      return response.data;
+    })
+  }
+  forgotpassword(password, token) {
+    return axios.post('http://54.91.216.255:8080/token', {
+      token,
       password
     });
   }
