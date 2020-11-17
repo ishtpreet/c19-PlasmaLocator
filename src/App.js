@@ -170,7 +170,7 @@ function App() {
                     <h3>Live Cases by country</h3>
                     <Table countries={tableData} />
                     {/* graph for above mentioned table */}
-                    <h3>Wordlwide new cases</h3>
+                    <h3>Worldwide new cases</h3>
                     <LineGraph />
                   </CardContent>
                 </Card>
