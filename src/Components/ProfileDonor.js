@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import AuthService from "../Services/auth-service";
 import Header from "./Header";
 
-export default class Profile extends Component {
+export default class ProfileDonor extends Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +37,7 @@ export default class Profile extends Component {
             <br />
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username}</strong> Profile (Recepient/User)
+            <strong>{currentUser.username}</strong> Profile (Donor)
           </h3>
         </header>
         <p>

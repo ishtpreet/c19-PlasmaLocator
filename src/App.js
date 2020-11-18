@@ -17,6 +17,9 @@ import "leaflet/dist/leaflet.css";
 import LineGraph from "./Components/LineGraph";
 import ForgetPassword from './Components/ForgetPassword';
 import Fpass from './Components/Fpass';
+import SignupDonor from '../src/Components/SignupDonor';
+import LoginDonor from '../src/Components/LoginDonor';
+import ProfileDonor from '../src/Components/ProfileDonor';
 
 
 function App() {
@@ -100,11 +103,20 @@ function App() {
              <Route path="/login">
                <Login />
              </Route>
+             <Route path="/donor/login">
+               <LoginDonor />
+             </Route>
              <Route path="/signup">
                <Signup />
              </Route>
+             <Route path="/donor/signup">
+               <SignupDonor />
+             </Route>
              <Route path="/profile">
                <Profile />
+             </Route>
+             <Route path="/donor/profile">
+               <ProfileDonor />
              </Route>
              <Route path="/">
                {/*Header */}

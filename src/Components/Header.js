@@ -55,7 +55,7 @@ class Header extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
+                <a href="/home" className="nav-link" onClick={this.logOut}>
                   LogOut
                 </a>
               </li>
@@ -64,8 +64,8 @@ class Header extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
               <NavDropdown title="Donor" id="nav-dropdown-Donor">
-        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/login'}>Login</NavLink></NavDropdown.Item>
-        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/signup'}>SignUp</NavLink></NavDropdown.Item>
+        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/donor/login'}>Login</NavLink></NavDropdown.Item>
+        <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/donor/signup'}>SignUp</NavLink></NavDropdown.Item>
       </NavDropdown>
               </li>
 
