@@ -20,17 +20,12 @@ import Table from "../src/Components/Table";
 import { sortData } from "./util";
 import "leaflet/dist/leaflet.css";
 import LineGraph from "./Components/LineGraph";
-<<<<<<< HEAD
 import ForgetPassword from './Components/ForgetPassword';
 import Fpass from './Components/Fpass';
 import SignupDonor from '../src/Components/SignupDonor';
 import LoginDonor from '../src/Components/LoginDonor';
 import ProfileDonor from '../src/Components/ProfileDonor';
 
-=======
-import ForgetPassword from "./Components/ForgetPassword";
-import Fpass from "./Components/Fpass";
->>>>>>> 3cc62054de5d88e990eea4d970cbb11d1745fc75
 
 function App() {
   //STATES -> how to write variable in react
@@ -103,7 +98,6 @@ function App() {
   return (
     <div className="app">
       <div className="app__header">
-<<<<<<< HEAD
          <BrowserRouter>
          <Switch>
            <Route path="/forgetpass">
@@ -131,29 +125,6 @@ function App() {
              <Route path="/">
                {/*Header */}
                <Header />
-=======
-        <BrowserRouter>
-          <Switch>
-            <Route path="/forgetpass">
-              <ForgetPassword />
-            </Route>
-            <Route
-              path="/forgotpass/:token"
-              render={(props) => <Fpass {...props} />}
-            />
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
-            <Route path="/">
-              {/*Header */}
-              <Header />
->>>>>>> 3cc62054de5d88e990eea4d970cbb11d1745fc75
               <div className="app__section">
                 <div className="app__left">
                   {/* Title = select input dropdown */}

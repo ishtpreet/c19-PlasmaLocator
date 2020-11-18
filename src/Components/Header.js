@@ -63,25 +63,10 @@ class Header extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-<<<<<<< HEAD
               <NavDropdown title="Donor" id="nav-dropdown-Donor">
         <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/donor/login'}>Login</NavLink></NavDropdown.Item>
         <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/donor/signup'}>SignUp</NavLink></NavDropdown.Item>
       </NavDropdown>
-=======
-                <NavDropdown title="Donor" id="nav-dropdown-Donor">
-                  <NavDropdown.Item className="customNavItem">
-                    <NavLink className="customNavLink" to={"/login"}>
-                      Login
-                    </NavLink>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="customNavItem">
-                    <NavLink className="customNavLink" to={"/signup"}>
-                      SignUp
-                    </NavLink>
-                  </NavDropdown.Item>
-                </NavDropdown>
->>>>>>> 3cc62054de5d88e990eea4d970cbb11d1745fc75
               </li>
 
               <li className="nav-item">
