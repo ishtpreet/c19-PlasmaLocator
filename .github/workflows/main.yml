@@ -1,0 +1,30 @@
+name: CI/CD to AWS S3
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: '12'
+    - name: NPM Install
+      run: |
+        npm install
+    - name: Staging Build
+      run: |
+        npm run build
+    - name: Deploy to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --delete
+      env:
+        AWS_S3_BUCKET: 'www.c19plasma.ml'
+        AWS_ACCESS_KEY_ID: 'AKIA56MKI2FQEU6IKF5Y'
+        AWS_SECRET_ACCESS_KEY: '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'
+        AWS_REGION: 'us-east-1'
+        SOURCE_DIR: "build"

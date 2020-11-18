@@ -1,24 +1,69 @@
-.header__logo{
-    height: 40px;
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__left {
+  display: flex;
+  padding-left: 50px;
+}
+
+.header__right {
+  padding-right: 50px;
+}
+
+.header__heading {
+  color: #111;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0 0 0;
+  padding: 20px 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.header__heading :hover {
+  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header__logo {
+  height: 65px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.header__right__login :hover {
+  padding: 20px 20px 20px 20px;
+}
+
+.header__right__signup {
+  justify-self: end;
+}
+
+.header__logo {
+  height: 40px;
 }
 .nav-item .dropdown-menu {
-    background: #343a40;
-  }
-  
-  .nav-item .dropdown-item {
-    color: #ffffff;
-  }
-  
-   .nav-item .dropdown-item:hover {
-    background: #343a40;
-  } 
-  .customNavLink{
-      color: #ffffff80;
-  }
-  .customNavLink:hover{
-      text-decoration: none;
-      color: #ffffff;
-  }
-  .customNavItem{
-    background: "#343a40";
-  }
+  background: #343a40;
+}
+
+.nav-item .dropdown-item {
+  color: #ffffff;
+}
+
+.nav-item .dropdown-item:hover {
+  background: #343a40;
+}
+.customNavLink {
+  color: #ffffff80;
+}
+.customNavLink:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+.customNavItem {
+  background: "#343a40";
+}
