@@ -25,6 +25,8 @@ import Fpass from './Components/Fpass';
 import SignupDonor from '../src/Components/SignupDonor';
 import LoginDonor from '../src/Components/LoginDonor';
 import ProfileDonor from '../src/Components/ProfileDonor';
+import ForgetPasswordDonor from '../src/Components/ForgetPasswordDonor';
+import FpassDonor from '../src/Components/FpassDonor';
 
 
 function App() {
@@ -103,7 +105,11 @@ function App() {
            <Route path="/forgetpass">
              <ForgetPassword />
            </Route>
+           <Route path="/donor/forgetpass">
+             <ForgetPasswordDonor />
+           </Route>
            <Route path="/forgotpass/:token"  render={(props) => <Fpass {...props} />} />
+           <Route path="/donor/forgotpass/:token"  render={(props) => <FpassDonor {...props} />} />
              <Route path="/login">
                <Login />
              </Route>

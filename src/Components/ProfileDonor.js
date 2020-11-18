@@ -18,6 +18,7 @@ export default class ProfileDonor extends Component {
     const currentUser = AuthService.getCurrentUser();
 
     if (!currentUser) this.setState({ redirect: "/" });
+    if(localStorage.getItem('user')) this.setState({redirect: '/profile'});
     this.setState({ currentUser: currentUser, userReady: true })
   }
 

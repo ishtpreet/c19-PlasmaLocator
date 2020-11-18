@@ -27,7 +27,7 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data)); //Name to be changed
+          localStorage.setItem("donor", JSON.stringify(response.data)); //Name to be changed
         }
 
         return response.data;
@@ -36,6 +36,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("donor");
   }
 
   register(username, email, password) {
@@ -60,15 +61,32 @@ class AuthService {
       return response.data;
     })
   }
+  forgetpasswordDonor(email) {
+    return axios.get("http://54.91.216.255:8080/donor/fpass/" + email)
+    .then(response =>{
+      return response.data;
+    })
+  }
+
   forgotpassword(password, token) {
     return axios.post('http://54.91.216.255:8080/token', {
       token,
       password
     });
   }
+  forgotpasswordDonor(password, token) {
+    return axios.post('http://54.91.216.255:8080/donor/token', {
+      token,
+      password
+    });
+  }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    if(localStorage.getItem('user'))
+      return JSON.parse(localStorage.getItem('user'));
+    else
+      return JSON.parse(localStorage.getItem('donor'));
+
   }
 }
 
