@@ -61,8 +61,21 @@ class AuthService {
       return response.data;
     })
   }
+  forgetpasswordDonor(email) {
+    return axios.get("http://54.91.216.255:8080/donor/fpass/" + email)
+    .then(response =>{
+      return response.data;
+    })
+  }
+
   forgotpassword(password, token) {
     return axios.post('http://54.91.216.255:8080/token', {
+      token,
+      password
+    });
+  }
+  forgotpasswordDonor(password, token) {
+    return axios.post('http://54.91.216.255:8080/donor/token', {
       token,
       password
     });

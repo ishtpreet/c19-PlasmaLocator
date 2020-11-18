@@ -121,7 +121,7 @@ render() {
             />
           </div>
           <div className="forget">
-          <Link to={"/forgetpass"} className="nav-link">
+          <Link to={"/donor/forgetpass"} className="nav-link">
                   Forgot Password?
                 </Link>
           </div>
