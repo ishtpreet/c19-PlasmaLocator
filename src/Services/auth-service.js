@@ -39,20 +39,24 @@ class AuthService {
     localStorage.removeItem("donor");
   }
 
-  register(username, email, password) {
+  register(username, email, password, city, phone) {
     return axios.post(API_URL + "signup", {
       username,
       email,
-      password
+      password,
+      city,
+      phone
     });
   }
   //*****Donor Register **********
 
-  donorregister(username, email, password) {
+  donorregister(username, email, password, city, phone) {
     return axios.post(API_URL + "donor/signup", {
       username,
       email,
-      password
+      password,
+      city,
+      phone
     });
   }
   forgetpassword(email) {
