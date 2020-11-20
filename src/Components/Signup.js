@@ -81,6 +81,7 @@ export default class Signup extends Component {
       secondDropdown: true,
       cities: {},
       dataloaded: true,
+      selectedState: '', 
       city: '',
       inState: {
         statesofIndia:[
@@ -129,7 +130,8 @@ export default class Signup extends Component {
   dropChange(event){
     this.setState({
       dataloaded: false,
-      secondDropdown: true
+      secondDropdown: true,
+      selectedState: event.target.value
     })
     console.log(event.target.value);
     axios.get('http://54.91.216.255:3000/cities?State_like='+event.target.value)
@@ -193,7 +195,7 @@ export default class Signup extends Component {
         this.state.username,
         this.state.email,
         this.state.password,
-        this.state.city,
+        this.state.city+', '+this.state.selectedState,
         this.state.phone
       ).then(
         (response) => {
@@ -295,7 +297,8 @@ export default class Signup extends Component {
                     onChange={this.dropChange} 
                     name='state' 
                     className="form-control"
-                    validations={[required]}>
+                    validations={[required]}
+                    value={this.state.selectedState}>
                     <option>---select---</option>
                     {
                         this.state.inState && this.state.inState.statesofIndia.map((k,v) => (<option key={k.key} value={k.name}>{k.name}</option>)
