@@ -4,6 +4,10 @@
   align-items: center;
   height: 100vh;
 }
+.card-container.card {
+  max-width: 750px !important;
+  padding: 40px 40px;
+}
 .signup__logo {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -14,7 +18,7 @@
 }
 
 .signup__container {
-  width: 300px;
+  width: 500px;
   height: fit-content;
   display: flex;
   flex-direction: column;

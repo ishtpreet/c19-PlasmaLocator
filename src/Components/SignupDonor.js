@@ -3,6 +3,10 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { isMobilePhone } from 'validator';
+import Select from 'react-validation/build/select';
+import axios from 'axios';
+import { Spinner } from 'react-bootstrap';
 
 import AuthService from '../Services/auth-service';
 import "../Css/Signup.css";
@@ -38,6 +42,15 @@ const vusername = value => {
     );
   }
 };
+const Phone = (val) => {
+  if(!isMobilePhone(val,'en-IN')){
+    return (
+      <div className="alert alert-danger" role="alert">
+        This is not a valid Phone Number.
+      </div>
+    );
+  }
+};
 
 const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
@@ -55,15 +68,85 @@ export default class SignupDonor extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangePhone = this.onChangePhone.bind(this);
+    this.dropChange = this.dropChange.bind(this);
+    this.selectCity = this.selectCity.bind(this);
 
     this.state = {
       username: "",
       email: "",
       password: "",
       successful: false,
-      message: ""
+      message: "",
+      phone: '',
+      secondDropdown: true,
+      cities: {},
+      dataloaded: true,
+      city: '',
+      inState: {
+        statesofIndia:[
+          {'key':"AN",'name':"Andaman and Nicobar Islands"},
+          {'key':"AP",'name':"Andhra Pradesh"},
+          {'key':"AR",'name':"Arunachal Pradesh"},
+          {'key':"AS",'name':"Assam"},
+          {'key':"BR",'name':"Bihar"},
+          {'key':"CG",'name':"Chandigarh"},
+          {'key':"CH",'name':"Chhattisgarh"},
+          {'key':"DN",'name':"Dadra and Nagar Haveli"},
+          {'key':"DD",'name':"Daman and Diu"},
+          {'key':"DL",'name':"Delhi"},
+          {'key':"GA",'name':"Goa"},
+          {'key':"GJ",'name':"Gujarat"},
+          {'key':"HR",'name':"Haryana"},
+          {'key':"HP",'name':"Himachal Pradesh"},
+          {'key':"JK",'name':"Jammu and Kashmir"},
+          {'key':"JH",'name':"Jharkhand"},
+          {'key':"KA",'name':"Karnataka"},
+          {'key':"KL",'name':"Kerala"},
+          {'key':"LA",'name':"Ladakh"},
+          {'key':"LD",'name':"Lakshadweep"},
+          {'key':"MP",'name':"Madhya Pradesh"},
+          {'key':"MH",'name':"Maharashtra"},
+          {'key':"MN",'name':"Manipur"},
+          {'key':"ML",'name':"Meghalaya"},
+          {'key':"MZ",'name':"Mizoram"},
+          {'key':"NL",'name':"Nagaland"},
+          {'key':"OR",'name':"Odisha"},
+          {'key':"PY",'name':"Puducherry"},
+          {'key':"PB",'name':"Punjab"},
+          {'key':"RJ",'name':"Rajasthan"},
+          {'key':"SK",'name':"Sikkim"},
+          {'key':"TN",'name':"Tamil Nadu"},
+          {'key':"TS",'name':"Telangana"},
+          {'key':"TR",'name':"Tripura"},
+          {'key':"UP",'name':"Uttar Pradesh"},
+          {'key':"UK",'name':"Uttarakhand"},
+          {'key':"WB",'name':"West Bengal"}
+  
+  ]
+      }
     };
   }
+  dropChange(event){
+    this.setState({
+      dataloaded: false,
+      secondDropdown: true
+    })
+    console.log(event.target.value);
+    axios.get('http://54.91.216.255:3000/cities?State_like='+event.target.value)
+    .then((data) =>{
+        
+        console.log(data.data);
+        this.setState({
+          cities: data.data,
+          dataloaded: true
+
+        })
+    })
+    this.setState({
+      secondDropdown: false
+    })
+}
 
   onChangeUsername(e) {
     this.setState({
@@ -76,11 +159,25 @@ export default class SignupDonor extends Component {
       email: e.target.value
     });
   }
+  onChangePhone(e){
+    this.setState({
+      phone: e.target.value,
+    })
+  }
 
   onChangePassword(e) {
     this.setState({
       password: e.target.value
     });
+  }
+  selectCity(e){
+    // e.preventDefault();
+    this.setState({
+      city: e.target.value,
+
+    });
+    console.log(e.target.value);
+    console.log('city is'+this.state.city)
   }
 
   handleRegister(e) {
@@ -97,7 +194,9 @@ export default class SignupDonor extends Component {
       AuthService.donorregister(
         this.state.username,
         this.state.email,
-        this.state.password
+        this.state.password,
+        this.state.city,
+        this.state.phone
       ).then(
         response => {
           this.setState({
@@ -127,83 +226,142 @@ export default class SignupDonor extends Component {
 
   return (
     <div>
-      <Header />
-      <div className="col-md-12">
-        <div className="card card-container">
-          <Form
-            onSubmit={this.handleRegister}
-            ref={c => {
-              this.form = c;
-            }}
-          >
-            {!this.state.successful && (
-              <div>
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                    validations={[required, vusername]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    validations={[required, email]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                    validations={[required, vpassword]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
-                </div>
-              </div>
-            )}
-
-            {this.state.message && (
+    <Header />
+    <div className="col-md-12">
+      <div className="card card-container">
+        <Form
+          onSubmit={this.handleRegister}
+          ref={(c) => {
+            this.form = c;
+          }}
+        >
+          {!this.state.successful && (
+            <div>
+            <div className='row'>
+              <div className='col-6'>
               <div className="form-group">
-                <div
-                  className={
-                    this.state.successful
-                      ? "alert alert-success"
-                      : "alert alert-danger"
+                <label htmlFor="username">Username</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.onChangeUsername}
+                  validations={[required, vusername]}
+                />
+              </div>
+              </div>
+              <div className='col-6'>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  validations={[required, email]}
+                />
+              </div>
+              </div>
+              </div>
+              <div className='row'>
+            <div className='col-6'>
+              <div className="form-group">
+                <label htmlFor="phone">Phone</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="phone"
+                  value={this.state.phone}
+                  onChange={this.onChangePhone}
+                  validations={[required, Phone]}
+                />
+              </div>
+              </div>
+              <div className='col-6'>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                  validations={[required, vpassword]}
+                />
+              </div>
+              </div>
+              </div>
+              <div className='row'>
+                <div className='col-6'>
+                <label htmlFor="state">State</label>
+                <Select 
+                onChange={this.dropChange} 
+                name='state' 
+                className="form-control"
+                validations={[required]}>
+                <option>---select---</option>
+                {
+                    this.state.inState && this.state.inState.statesofIndia.map((k,v) => (<option key={k.key} value={k.name}>{k.name}</option>)
+
+                      )
+                }
+                </Select>
+                </div>
+                <div className='col-6'>
+                  <label htmlFor="city">City</label>
+                { this.state.dataloaded ? 
+              <Select  
+              disabled={this.state.secondDropdown}
+              validations={[required]}
+              className="form-control"
+              name='city'
+              onSelect={this.selectCity}
+              value={this.state.city}
+              onChange={this.selectCity}>
+                  <option defaultChecked disabled>Please Select a City</option>
+                  {
+                      Object.keys(this.state.cities).map((k,v)=>(<option key={k} value={this.state.cities[k].City}>{this.state.cities[k].City}</option>))
+
                   }
-                  role="alert"
-                >
-                  {this.state.message}
+
+              </Select> : <Spinner animation='border' />
+              }
                 </div>
               </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
-            />
-          </Form>
-        </div>
+              <div className="form-group">
+                <button className="btn btn-primary btn-block">
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          )}
+
+          {this.state.message && (
+            <div className="form-group">
+              <div
+                className={
+                  this.state.successful
+                    ? "alert alert-success"
+                    : "alert alert-danger"
+                }
+                role="alert"
+              >
+                {this.state.message}
+              </div>
+            </div>
+          )}
+          <CheckButton
+            style={{ display: "none" }}
+            ref={(c) => {
+              this.checkBtn = c;
+            }}
+          />
+        </Form>
       </div>
     </div>
+  </div>
   );
 }
 }
