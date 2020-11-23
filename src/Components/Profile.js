@@ -65,8 +65,7 @@ export default class Profile extends Component {
                 <div className="profile__information__userinfo">
                   <header className="jumbotron">
                     <h3>
-                      { <strong>{currentUser.username}</strong> Profile }
-                      This is My Name.
+                      <strong>{currentUser.username}</strong> Profile
                     </h3>
                   </header>
                   <p>
