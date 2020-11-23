@@ -11,6 +11,7 @@ export default class Profile extends Component {
       redirect: null,
       userReady: false,
       currentUser: { username: "" },
+      userType: "User"
     };
   }
 
@@ -18,7 +19,7 @@ export default class Profile extends Component {
     const currentUser = AuthService.getCurrentUser();
 
     if (!currentUser) this.setState({ redirect: "/" });
-    if (localStorage.getItem('donor')) this.setState({redirect: '/donor/profile'})
+    if (localStorage.getItem('donor')) this.setState({userType: "Donor"})
     this.setState({ currentUser: currentUser, userReady: true })
     
   }
@@ -39,7 +40,7 @@ export default class Profile extends Component {
             <br />
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username}</strong> Profile (Recepient/User)
+            <strong>{currentUser.username}</strong> Profile {this.state.userType}
           </h3>
         </header>
         <p>

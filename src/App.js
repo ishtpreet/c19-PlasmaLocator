@@ -24,7 +24,6 @@ import ForgetPassword from './Components/ForgetPassword';
 import Fpass from './Components/Fpass';
 import SignupDonor from '../src/Components/SignupDonor';
 import LoginDonor from '../src/Components/LoginDonor';
-import ProfileDonor from '../src/Components/ProfileDonor';
 import ForgetPasswordDonor from '../src/Components/ForgetPasswordDonor';
 import FpassDonor from '../src/Components/FpassDonor';
 
@@ -124,9 +123,6 @@ function App() {
              </Route>
              <Route path="/profile">
                <Profile />
-             </Route>
-             <Route path="/donor/profile">
-               <ProfileDonor />
              </Route>
              <Route path="/">
                {/*Header */}

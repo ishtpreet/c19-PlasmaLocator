@@ -60,7 +60,7 @@ handleLogin(e) {
     AuthService.donorlogin(this.state.username, this.state.password).then(
       () => {
         // this.context.router.push("/profile")
-        window.location.replace("http://"+window.location.hostname+"/donor/profile");
+        window.location.replace("http://"+window.location.hostname+"/profile");
         //  window.location.reload();
       },
       error => {
