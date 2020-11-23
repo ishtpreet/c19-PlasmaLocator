@@ -58,3 +58,19 @@ export const showDataOnMap = (data, caseType = "cases") => {
     </Circle>
   ));
 };
+
+export const plotCoordinates = (others) => {
+  return others.map((people) => (
+    <Circle
+      center={[people.lat, people.lng]}
+      fillOpacity={0.4}
+      color={"#00c853"}
+      fillColor={"#00c853"}
+      radius={20000}
+    >
+      <Popup>
+        <p> I am the info the Other people</p>
+      </Popup>
+    </Circle>
+  ));
+};

@@ -1,0 +1,19 @@
+.profile {
+  /* display: flex; */
+}
+
+.profile__information {
+  display: flex;
+}
+.profile__information__userinfo {
+  padding-right: 20px;
+  width: 50%;
+}
+
+.profile__information__contactinfo {
+  width: 50%;
+}
+
+.contactbutton {
+    place-self: center,center;
+}
