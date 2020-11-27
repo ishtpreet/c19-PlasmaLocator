@@ -95,11 +95,11 @@ class AuthService {
   }
   getDonorDetails(header){
     let config = {headers: header};
-    return axios.get('http://localhost:8080/api/test', config);
+    return axios.get('http://54.91.216.255:8080/api/test', config);
   }
   updateDonorDetails(header, dateDetected, recoveredOn, lastTested, currentStatus){
     let config = {headers: header};
-    return axios.post("http://localhost:8080/api/auth/donor/setupProfile", {
+    return axios.post(API_URL+ "donor/setupProfile", {
       dateDetected,
       recoveredOn,
       lastTested,
