@@ -4,6 +4,7 @@ import "../Css/Profile.css";
 import { Redirect } from "react-router-dom";
 import AuthService from "../Services/auth-service";
 import Header from "./Header";
+import authHeader from "../Services/auth-header";
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
@@ -20,11 +21,24 @@ export default class Profile extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(props) {
     const currentUser = AuthService.getCurrentUser();
-
+    
     if (!currentUser) this.setState({ redirect: "/" });
     if (localStorage.getItem('donor')) this.setState({userType: "Donor"})
+    console.log(this.state.userType);
+    if (true){
+      let aheader = authHeader();
+      AuthService.getDonorDetails(aheader)
+      .then((res)=>{
+        if(res.data.first_login === '0'){
+          
+          this.setState({
+            redirect: "/setupProfile"
+          })
+        }
+      })
+    }
     this.setState({ currentUser: currentUser, userReady: true })
     
   }

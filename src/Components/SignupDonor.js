@@ -11,6 +11,7 @@ import { Spinner } from 'react-bootstrap';
 import AuthService from '../Services/auth-service';
 import "../Css/Signup.css";
 import Header from './Header';
+import inStateJson from '../Services/states.json';
 
 
 const required = value => {
@@ -71,6 +72,7 @@ export default class SignupDonor extends Component {
     this.onChangePhone = this.onChangePhone.bind(this);
     this.dropChange = this.dropChange.bind(this);
     this.selectCity = this.selectCity.bind(this);
+    this.onChangebloodGroup = this.onChangebloodGroup.bind(this);
 
     this.state = {
       username: "",
@@ -84,48 +86,8 @@ export default class SignupDonor extends Component {
       cities: {},
       dataloaded: true,
       city: '',
-      inState: {
-        statesofIndia:[
-          {'key':"AN",'name':"Andaman and Nicobar Islands"},
-          {'key':"AP",'name':"Andhra Pradesh"},
-          {'key':"AR",'name':"Arunachal Pradesh"},
-          {'key':"AS",'name':"Assam"},
-          {'key':"BR",'name':"Bihar"},
-          {'key':"CG",'name':"Chandigarh"},
-          {'key':"CH",'name':"Chhattisgarh"},
-          {'key':"DN",'name':"Dadra and Nagar Haveli"},
-          {'key':"DD",'name':"Daman and Diu"},
-          {'key':"DL",'name':"Delhi"},
-          {'key':"GA",'name':"Goa"},
-          {'key':"GJ",'name':"Gujarat"},
-          {'key':"HR",'name':"Haryana"},
-          {'key':"HP",'name':"Himachal Pradesh"},
-          {'key':"JK",'name':"Jammu and Kashmir"},
-          {'key':"JH",'name':"Jharkhand"},
-          {'key':"KA",'name':"Karnataka"},
-          {'key':"KL",'name':"Kerala"},
-          {'key':"LA",'name':"Ladakh"},
-          {'key':"LD",'name':"Lakshadweep"},
-          {'key':"MP",'name':"Madhya Pradesh"},
-          {'key':"MH",'name':"Maharashtra"},
-          {'key':"MN",'name':"Manipur"},
-          {'key':"ML",'name':"Meghalaya"},
-          {'key':"MZ",'name':"Mizoram"},
-          {'key':"NL",'name':"Nagaland"},
-          {'key':"OR",'name':"Odisha"},
-          {'key':"PY",'name':"Puducherry"},
-          {'key':"PB",'name':"Punjab"},
-          {'key':"RJ",'name':"Rajasthan"},
-          {'key':"SK",'name':"Sikkim"},
-          {'key':"TN",'name':"Tamil Nadu"},
-          {'key':"TS",'name':"Telangana"},
-          {'key':"TR",'name':"Tripura"},
-          {'key':"UP",'name':"Uttar Pradesh"},
-          {'key':"UK",'name':"Uttarakhand"},
-          {'key':"WB",'name':"West Bengal"}
-  
-  ]
-      }
+      inState: inStateJson,
+      bloodGroup: ""
     };
   }
   dropChange(event){
@@ -166,6 +128,11 @@ export default class SignupDonor extends Component {
       phone: e.target.value,
     })
   }
+  onChangebloodGroup(e){
+    this.setState({
+      bloodGroup: e.target.value,
+    })
+  }
 
   onChangePassword(e) {
     this.setState({
@@ -198,7 +165,8 @@ export default class SignupDonor extends Component {
         this.state.email,
         this.state.password,
         this.state.city+', '+this.state.selectedState,
-        this.state.phone
+        this.state.phone,
+        this.state.bloodGroup
       ).then(
         response => {
           this.setState({
@@ -268,7 +236,7 @@ export default class SignupDonor extends Component {
               </div>
               </div>
               <div className='row'>
-            <div className='col-6'>
+            <div className='col-4'>
               <div className="form-group">
                 <label htmlFor="phone">Phone</label>
                 <Input
@@ -281,7 +249,7 @@ export default class SignupDonor extends Component {
                 />
               </div>
               </div>
-              <div className='col-6'>
+              <div className='col-4'>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <Input
@@ -294,6 +262,27 @@ export default class SignupDonor extends Component {
                 />
               </div>
               </div>
+              <div className='col-4'>
+              <div className="form-group">
+              <label htmlFor="bloodGroup">Blood Group</label>
+                <Select 
+                onChange={this.onChangebloodGroup} 
+                name='bloodGroup' 
+                className="form-control"
+                validations={[required]}
+                value={this.state.bloodGroup}>
+                <option value='' defaultChecked>Select a Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                </Select>
+                </div>
+              </div>
               </div>
               <div className='row'>
                 <div className='col-6'>
@@ -304,7 +293,7 @@ export default class SignupDonor extends Component {
                 className="form-control"
                 validations={[required]}
                 value={this.state.selectedState}>
-                <option>---select---</option>
+                <option>Select a State</option>
                 {
                     this.state.inState && this.state.inState.statesofIndia.map((k,v) => (<option key={k.key} value={k.name}>{k.name}</option>)
 
@@ -323,7 +312,7 @@ export default class SignupDonor extends Component {
               onSelect={this.selectCity}
               value={this.state.city}
               onChange={this.selectCity}>
-                  <option defaultChecked disabled>Please Select a City</option>
+                  <option defaultChecked value=''>Please Select a City</option>
                   {
                       Object.keys(this.state.cities).map((k,v)=>(<option key={k} value={this.state.cities[k].City}>{this.state.cities[k].City}</option>))
 

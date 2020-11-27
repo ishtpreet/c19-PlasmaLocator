@@ -50,13 +50,14 @@ class AuthService {
   }
   //*****Donor Register **********
 
-  donorregister(username, email, password, city, phone) {
+  donorregister(username, email, password, city, phone, bloodGroup) {
     return axios.post(API_URL + "donor/signup", {
       username,
       email,
       password,
       city,
-      phone
+      phone,
+      bloodGroup
     });
   }
   forgetpassword(email) {
@@ -91,6 +92,19 @@ class AuthService {
     else
       return JSON.parse(localStorage.getItem('donor'));
 
+  }
+  getDonorDetails(header){
+    let config = {headers: header};
+    return axios.get('http://localhost:8080/api/test', config);
+  }
+  updateDonorDetails(header, dateDetected, recoveredOn, lastTested, currentStatus){
+    let config = {headers: header};
+    return axios.post("http://localhost:8080/api/auth/donor/setupProfile", {
+      dateDetected,
+      recoveredOn,
+      lastTested,
+      currentStatus
+    },config)
   }
 }
 

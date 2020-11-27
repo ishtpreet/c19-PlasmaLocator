@@ -58,8 +58,14 @@ handleLogin(e) {
 
   if (this.checkBtn.context._errors.length === 0) {
     AuthService.donorlogin(this.state.username, this.state.password).then(
-      () => {
+      (response) => {
+        // this.onClickRedirect(response.first_login);
+          // window.location.replace("http://")
+            // console.log("First Login "+response.first_login)
+            if(response.first_login === '0')
+            window.location.replace("http://"+window.location.hostname+"/setupProfile");
         // this.context.router.push("/profile")
+        else
         window.location.replace("http://"+window.location.hostname+"/profile");
         //  window.location.reload();
       },
@@ -89,7 +95,7 @@ render() {
     <div>
       <Header />
     <div className="col-md-12">
-      <div className="card card-container">
+      <div className="card card-container-login">
 
         <Form
           onSubmit={this.handleLogin}

@@ -26,6 +26,7 @@ import SignupDonor from '../src/Components/SignupDonor';
 import LoginDonor from '../src/Components/LoginDonor';
 import ForgetPasswordDonor from '../src/Components/ForgetPasswordDonor';
 import FpassDonor from '../src/Components/FpassDonor';
+import SetupProfile from '../src/Components/SetupProfile';
 
 
 function App() {
@@ -121,9 +122,8 @@ function App() {
              <Route path="/donor/signup">
                <SignupDonor />
              </Route>
-             <Route path="/profile">
-               <Profile />
-             </Route>
+             <Route path="/profile"><Profile/></Route>
+             <Route path='/setupProfile'><SetupProfile/></Route>
              <Route path="/">
                {/*Header */}
                <Header />
