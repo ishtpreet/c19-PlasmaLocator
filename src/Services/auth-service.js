@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://54.91.216.255:8080/api/auth/";
+const API_URL = "https://api.c19plasma.ml/api/auth/";
 
 
 class AuthService {
@@ -61,26 +61,26 @@ class AuthService {
     });
   }
   forgetpassword(email) {
-    return axios.get("http://54.91.216.255:8080/fpass/" + email)
+    return axios.get("https://api.c19plasma.ml/fpass/" + email)
     .then(response =>{
       return response.data;
     })
   }
   forgetpasswordDonor(email) {
-    return axios.get("http://54.91.216.255:8080/donor/fpass/" + email)
+    return axios.get("https://api.c19plasma.ml/donor/fpass/" + email)
     .then(response =>{
       return response.data;
     })
   }
 
   forgotpassword(password, token) {
-    return axios.post('http://54.91.216.255:8080/token', {
+    return axios.post('https://api.c19plasma.ml/token', {
       token,
       password
     });
   }
   forgotpasswordDonor(password, token) {
-    return axios.post('http://54.91.216.255:8080/donor/token', {
+    return axios.post('https://api.c19plasma.ml/donor/token', {
       token,
       password
     });
@@ -95,7 +95,7 @@ class AuthService {
   }
   getDonorDetails(header){
     let config = {headers: header};
-    return axios.get('http://54.91.216.255:8080/api/test', config);
+    return axios.get('https://api.c19plasma.ml/api/test', config);
   }
   updateDonorDetails(header, dateDetected, recoveredOn, lastTested, currentStatus){
     let config = {headers: header};
