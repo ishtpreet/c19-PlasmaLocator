@@ -14,18 +14,34 @@ const mapZoom = 5;
 export default class Profile extends Component {
   constructor(props) {
     super(props);
-    
+    this.getUserGeolocation = this.getUserGeolocation.bind(this);    
     this.state = {
       redirect: null,
       userReady: false,
       currentUser: { username: "" },
       userType: "User",
-      self:{
-        lat: "",
-        lng: ""
-      }
+      self:{}
     };
   }
+  getUserGeolocation(e){
+    let self = {lat: "", lng: ""};
+    geolocation.getCurrentPosition(function (err, position) {
+      if (err) throw err
+      console.log("latitue",position.coords.latitude);
+      console.log("Longitude", position.coords.longitude);
+          // this.setState({
+          //   self:{
+          //     lat: position.coords.latitude,
+          //     lng: position.coords.longitude
+          //   }
+          // })
+          self.lat = position.coords.latitude;
+          self.lng = position.coords.longitude;
+    })
+    return self;
+
+  }
+  
   
   componentDidMount(props) {
     const currentUser = AuthService.getCurrentUser();
@@ -46,27 +62,18 @@ export default class Profile extends Component {
       })
     }
     this.setState({ currentUser: currentUser, userReady: true })
+    this.setState({
+      self: this.getUserGeolocation()
+    });
+    // console.log("hello",this.getUserGeolocation());
+    
     
   }
   
   render() {
-    let self = {lat: "", lng: ""};
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-    geolocation.getCurrentPosition(function (err, position) {
-      if (err) throw err
-      console.log("latitue",position.coords.latitude);
-      console.log("Longitude", position.coords.longitude);
-          // this.setState({
-          //   self:{
-          //     lat: position.coords.latitude,
-          //     lng: position.coords.longitude
-          //   }
-          // })
-          self.lat = position.coords.latitude;
-          self.lng = position.coords.longitude;
-    })
     
     const others = [
       {
@@ -127,7 +134,7 @@ export default class Profile extends Component {
                 <ProfileMap
                   center={mapCenter}
                   zoom={mapZoom}
-                  selfCord={self}
+                  selfCord={this.state.self}
                   otherCord={others}
                 />
               </div>
