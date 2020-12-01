@@ -63,10 +63,10 @@ handleLogin(e) {
           // window.location.replace("http://")
             // console.log("First Login "+response.first_login)
             if(response.first_login === '0')
-            window.location.replace("http://"+window.location.hostname+"/setupProfile");
+            window.location.replace("https://"+window.location.hostname+"/setupProfile");
         // this.context.router.push("/profile")
         else
-        window.location.replace("http://"+window.location.hostname+"/profile");
+        window.location.replace("https://"+window.location.hostname+"/profile");
         //  window.location.reload();
       },
       error => {
