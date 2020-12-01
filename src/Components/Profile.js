@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 import AuthService from "../Services/auth-service";
 import Header from "./Header";
 import authHeader from "../Services/auth-header";
+import geolocation from 'geolocation';
+
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
@@ -12,15 +14,19 @@ const mapZoom = 5;
 export default class Profile extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       redirect: null,
       userReady: false,
       currentUser: { username: "" },
-      userType: "User"
+      userType: "User",
+      self:{
+        lat: "",
+        lng: ""
+      }
     };
   }
-
+  
   componentDidMount(props) {
     const currentUser = AuthService.getCurrentUser();
     
@@ -42,20 +48,28 @@ export default class Profile extends Component {
     this.setState({ currentUser: currentUser, userReady: true })
     
   }
-
+  
   render() {
+    let self = {lat: "", lng: ""};
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-
-    const { currentUser } = this.state;
-    const self = {
-      lat: 28.6139,
-      lng: 77.2090
-    };
-
+    geolocation.getCurrentPosition(function (err, position) {
+      if (err) throw err
+      console.log("latitue",position.coords.latitude);
+      console.log("Longitude", position.coords.longitude);
+          // this.setState({
+          //   self:{
+          //     lat: position.coords.latitude,
+          //     lng: position.coords.longitude
+          //   }
+          // })
+          self.lat = position.coords.latitude;
+          self.lng = position.coords.longitude;
+    })
+    
     const others = [
-    {
+      {
       lat:12.12000,
       lng:76.68000
     },
@@ -79,7 +93,7 @@ export default class Profile extends Component {
                 <div className="profile__information__userinfo">
                   <header className="jumbotron">
                     <h3>
-                      <strong>{currentUser.username}</strong> Profile
+                      <strong></strong> Profile
                     </h3>
                   </header>
                   <p>
