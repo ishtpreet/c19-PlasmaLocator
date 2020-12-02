@@ -67,6 +67,7 @@ handleLogin(e) {
         // this.context.router.push("/profile")
         else
         window.location.replace("https://"+window.location.hostname+"/profile");
+        // this.history.push("/profile")
         //  window.location.reload();
       },
       error => {

@@ -60,7 +60,7 @@ export default class Login extends Component {
         () => {
           // this.context.router.push("/profile")
           window.location.replace(
-            "https://www." + window.location.hostname + "/profile"
+            "https://" + window.location.hostname + "/profile"
           );
           //  window.location.reload();
         },

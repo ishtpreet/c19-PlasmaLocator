@@ -94,7 +94,7 @@ export default class Signup extends Component {
       selectedState: event.target.value
     })
     console.log(event.target.value);
-    axios.get('http://54.91.216.255:3000/cities?State_like='+event.target.value)
+    axios.get('https://jaiibxxn44.execute-api.us-east-1.amazonaws.com/dev/api/cities?State_like'+event.target.value)
     .then((data) =>{
         
         console.log(data.data);
