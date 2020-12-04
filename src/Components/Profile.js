@@ -8,6 +8,23 @@ import Header from "./Header";
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
 
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(showPosition);
+//   } else {
+//     console.log("Geolocation is not supported by this browser.");
+//   }
+// }
+
+// function showPosition(position) {
+//   console.log(
+//     "Latitude: " +
+//       position.coords.latitude +
+//       "<br>Longitude: " +
+//       position.coords.longitude
+//   );
+// }
+
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -34,22 +51,22 @@ export default class Profile extends Component {
     const { currentUser } = this.state;
     const self = {
       lat: 28.6139,
-      lng: 77.2090
+      lng: 77.209,
     };
 
     const others = [
-    {
-      lat:12.12000,
-      lng:76.68000
-    },
-    {
-      lat:19.15500,
-      lng:	72.84999
-    },
-    {
-      lat:26.54045,
-      lng:88.71939
-    }
+      {
+        lat: 12.12,
+        lng: 76.68,
+      },
+      {
+        lat: 19.155,
+        lng: 72.84999,
+      },
+      {
+        lat: 26.54045,
+        lng: 88.71939,
+      },
     ];
     return (
       <div>
@@ -87,7 +104,9 @@ export default class Profile extends Component {
                     {/* <strong>Email:</strong> {currentUser.email} */}
                     This is contact Person's Email@gmail.com
                   </p>
-                  <button className="contactbutton">Contact</button>
+                  <button className="contactbutton">
+                    Contact
+                  </button>
                 </div>
               </div>
               <div className="profile__map">
