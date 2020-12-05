@@ -4,7 +4,7 @@ import "../Css/ProfileMap.css";
 import { plotCoordinates } from "../util";
 
 function ProfileMap({ center, zoom, selfCord, otherCord }) {
-  console.log("Hey this is my Coordinates", selfCord.lat, selfCord.lng);
+  console.log("Hey this is my Coordinates", selfCord);
   return (
     <div className="container">
       <div className="profile__map">

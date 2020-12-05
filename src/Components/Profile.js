@@ -20,7 +20,7 @@ export default class Profile extends Component {
       userReady: false,
       currentUser: { username: "" },
       userType: "User",
-      self:{}
+      self:{lat: "",lng: ""}
     };
   }
   getUserGeolocation(e){
@@ -32,7 +32,6 @@ export default class Profile extends Component {
       self.lng = position.coords.longitude;
     })
     return self;
-
   }
   
   
@@ -42,7 +41,7 @@ export default class Profile extends Component {
     if (!currentUser) this.setState({ redirect: "/" });
     if (localStorage.getItem('donor')) this.setState({userType: "Donor"})
     console.log(this.state.userType);
-    if (true){
+    if (localStorage.getItem('donor')){
       let aheader = authHeader();
       AuthService.getDonorDetails(aheader)
       .then((res)=>{
@@ -58,9 +57,7 @@ export default class Profile extends Component {
     this.setState({
       self: this.getUserGeolocation()
     });
-    // console.log("hello",this.getUserGeolocation());
-    
-    
+    // console.log("hello",this.getUserGeolocation());   
   }
   
   render() {

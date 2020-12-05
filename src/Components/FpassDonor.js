@@ -114,7 +114,7 @@ export default class FpassDonor extends Component {
       <div>
         <Header />
         <div className="col-md-12">
-          <div className="card card-container">
+          <div className="card card-container-login">
             <Form
               onSubmit={this.handleForgotPassword}
               ref={(c) => {
