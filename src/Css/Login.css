@@ -2,8 +2,12 @@ label {
   display: block;
   margin-top: 10px;
 }
+.sprofile {
+  text-align: center;
+  padding-top: 20px;
+}
 
-.card-container.card {
+.card-container-login.card {
   max-width: 350px !important;
   padding: 40px 40px;
 }

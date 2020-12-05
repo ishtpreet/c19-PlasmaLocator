@@ -1,12 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import { isEmail } from "validator";
 
-import AuthService from "../Services/auth-service";
-import "../Css/Login.css";
 import Header from "./Header";
+import AuthService from "../Services/auth-service";
+
+const email = (value) => {
+  if (!isEmail(value)) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        This is not a valid email.
+      </div>
+    );
+  }
+};
 
 const required = (value) => {
   if (!value) {
@@ -18,34 +27,27 @@ const required = (value) => {
   }
 };
 
-export default class Login extends Component {
+export default class ForgetPasswordDonor extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
+    this.handleForgetPassword = this.handleForgetPassword.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
 
     this.state = {
-      username: "",
-      password: "",
+      email: "",
       loading: false,
       message: "",
+      successful: false,
     };
   }
 
-  onChangeUsername(e) {
+  onChangeEmail(e) {
     this.setState({
-      username: e.target.value,
+      email: e.target.value,
     });
   }
 
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value,
-    });
-  }
-
-  handleLogin(e) {
+  handleForgetPassword(e) {
     e.preventDefault();
 
     this.setState({
@@ -56,12 +58,16 @@ export default class Login extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
+      AuthService.forgetpasswordDonor(this.state.email).then(
+        (data) => {
+          this.setState({
+            successful: true,
+            loading: false,
+            message: data.message,
+          });
+          console.log(data);
           // this.context.router.push("/profile")
-          window.location.replace(
-            "https://" + window.location.hostname + "/profile"
-          );
+          //   window.location.replace("http://"+window.location.hostname+"/profile");
           //  window.location.reload();
         },
         (error) => {
@@ -73,6 +79,7 @@ export default class Login extends Component {
             error.toString();
 
           this.setState({
+            successful: false,
             loading: false,
             message: resMessage,
           });
@@ -90,42 +97,24 @@ export default class Login extends Component {
       <div>
         <Header />
         <div className="col-md-12">
-          <div className="card card-container-login">
+          <div className="card card-container">
             <Form
-              onSubmit={this.handleLogin}
+              onSubmit={this.handleForgetPassword}
               ref={(c) => {
                 this.form = c;
               }}
             >
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="email">Email</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.onChangeUsername}
-                  validations={[required]}
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  validations={[required, email]}
                 />
               </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.onChangePassword}
-                  validations={[required]}
-                />
-              </div>
-              <div className="forget">
-                <Link to={"/forgetpass"} className="nav-link">
-                  Forgot Password?
-                </Link>
-              </div>
-
               <div className="form-group">
                 <button
                   className="btn btn-primary btn-block"
@@ -134,13 +123,20 @@ export default class Login extends Component {
                   {this.state.loading && (
                     <span className="spinner-border spinner-border-sm"></span>
                   )}
-                  <span>Login</span>
+                  <span>Submit</span>
                 </button>
               </div>
 
               {this.state.message && (
                 <div className="form-group">
-                  <div className="alert alert-danger" role="alert">
+                  <div
+                    className={
+                      this.state.successful
+                        ? "alert alert-success"
+                        : "alert alert-danger"
+                    }
+                    role="alert"
+                  >
                     {this.state.message}
                   </div>
                 </div>

@@ -1,9 +1,13 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import ProfileMap from "./ProfileMap.js";
 import "../Css/Profile.css";
 import { Redirect } from "react-router-dom";
 import AuthService from "../Services/auth-service";
 import Header from "./Header";
+import authHeader from "../Services/auth-header";
+import geolocation from 'geolocation';
+import axios from "axios";
+
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
@@ -28,46 +32,66 @@ const mapZoom = 5;
 export default class Profile extends Component {
   constructor(props) {
     super(props);
-
+    this.getUserGeolocation = this.getUserGeolocation.bind(this);    
     this.state = {
       redirect: null,
       userReady: false,
       currentUser: { username: "" },
+      userType: "User",
+      self:{},
+      donorList: [], //To be checked
     };
   }
-
-  componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
-
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true });
+  getUserGeolocation(e){
+    let self = {lat: "", lng: ""};
+    geolocation.getCurrentPosition(function (err, position) {
+      if (err) throw err
+      console.log("User Lat and lng are "+position.coords.latitude+" "+position.coords.longitude);
+      self.lat = position.coords.latitude;
+      self.lng = position.coords.longitude;
+    })
+    return self;
   }
 
+  componentDidMount(props) {
+    const currentUser = AuthService.getCurrentUser();
+    
+    if (!currentUser) this.setState({ redirect: "/" });
+    if (localStorage.getItem('donor')) this.setState({userType: "Donor"})
+    console.log(this.state.userType);
+    if (true){
+      let aheader = authHeader();
+      AuthService.getDonorDetails(aheader)
+      .then((res)=>{
+        if(res.data.first_login === '0'){
+          
+          this.setState({
+            redirect: "/setupProfile"
+          })
+        }
+      })
+    }
+    this.setState({ currentUser: currentUser, userReady: true })
+    this.setState({
+      self: this.getUserGeolocation()
+    });
+    let authheader = authHeader();
+    axios.get("https://api.c19plasma.ml/api/donorsList", { headers: authheader })
+    .then((response)=>{
+      this.setState({
+        donorList: response.data.data
+      })
+    });
+    // console.log("hello",this.getUserGeolocation());  
+  }
+  
+  
   render() {
+  console.log(">>>>>>List of donars:",this.state.donorList);
+
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-
-    const { currentUser } = this.state;
-    const self = {
-      lat: 28.6139,
-      lng: 77.209,
-    };
-
-    const others = [
-      {
-        lat: 12.12,
-        lng: 76.68,
-      },
-      {
-        lat: 19.155,
-        lng: 72.84999,
-      },
-      {
-        lat: 26.54045,
-        lng: 88.71939,
-      },
-    ];
     return (
       <div>
         <Header />
@@ -79,8 +103,7 @@ export default class Profile extends Component {
                 <div className="profile__information__userinfo">
                   <header className="jumbotron">
                     <h3>
-                      {/* <strong>{currentUser.username}</strong> Profile */}
-                      This is My Name.
+                      <strong></strong> Profile
                     </h3>
                   </header>
                   <p>
@@ -116,8 +139,8 @@ export default class Profile extends Component {
                 <ProfileMap
                   center={mapCenter}
                   zoom={mapZoom}
-                  selfCord={self}
-                  otherCord={others}
+                  selfCord={this.state.self}
+                  donorList={this.state.donorList}
                 />
               </div>
             </div>

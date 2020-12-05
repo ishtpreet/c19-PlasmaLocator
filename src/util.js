@@ -59,8 +59,9 @@ export const showDataOnMap = (data, caseType = "cases") => {
   ));
 };
 
-export const plotCoordinates = (others) => {
-  return others.map((people) => (
+// to plot the donars on the map
+export const plotCoordinates = (people) => {
+  return (
     <Circle
       center={[people.lat, people.lng]}
       fillOpacity={0.4}
@@ -69,8 +70,8 @@ export const plotCoordinates = (others) => {
       radius={20000}
     >
       <Popup>
-        <p> I am the info the Other people</p>
+        <p>{people.username}</p>
       </Popup>
     </Circle>
-  ));
+  );
 };

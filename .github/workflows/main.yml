@@ -23,8 +23,8 @@ jobs:
       with:
         args: --acl public-read --delete
       env:
-        AWS_S3_BUCKET: 'c-19plasma'
-        AWS_ACCESS_KEY_ID: 'AKIA56MKI2FQEU6IKF5Y'
-        AWS_SECRET_ACCESS_KEY: '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'
-        AWS_REGION: 'ap-south-1'
+        AWS_S3_BUCKET: 'www.c19plasma.ml'
+        AWS_ACCESS_KEY_ID: ${{secrets.AWS_KEY_ID}}
+        AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        AWS_REGION: 'us-east-1'
         SOURCE_DIR: "build"

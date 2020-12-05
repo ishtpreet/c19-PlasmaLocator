@@ -1,10 +1,18 @@
-import React from "react";
+import React, {  useEffect } from "react";
 import { Map as LeafletMap, TileLayer, Circle, Popup } from "react-leaflet";
 import "../Css/ProfileMap.css";
-import { plotCoordinates } from "../util";
 
-function ProfileMap({ center, zoom, selfCord, otherCord }) {
+
+function ProfileMap({ center, zoom, selfCord, donorList }) {
   console.log("Hey this is my Coordinates", selfCord.lat, selfCord.lng);
+ // console.log(">>>>>",otherCord);
+
+  useEffect(() => {
+    donorList.forEach(element => {
+      console.log(element.username);
+  }, [])
+  
+  });
   return (
     <div className="container">
       <div className="profile__map">
@@ -29,7 +37,20 @@ function ProfileMap({ center, zoom, selfCord, otherCord }) {
               <p> I am the info about User</p>
             </Popup>
           </Circle>
-          {plotCoordinates(otherCord)}
+          {
+            donorList.map(donor=> (
+              <Circle
+                center={[donor.lat, donor.lng]}
+                fillOpacity={0.4}
+                color={"#00c853"}
+                fillColor={"#00c853"}
+                radius={20000}
+              >
+                <Popup>
+                  <p>Hi I'm {donor.username}, Donor </p>
+                </Popup>
+              </Circle>
+            ))}
         </LeafletMap>
       </div>
     </div>
