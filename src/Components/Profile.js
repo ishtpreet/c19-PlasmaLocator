@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import ProfileMap from "./ProfileMap.js";
 import "../Css/Profile.css";
 import { Redirect } from "react-router-dom";
@@ -6,10 +6,28 @@ import AuthService from "../Services/auth-service";
 import Header from "./Header";
 import authHeader from "../Services/auth-header";
 import geolocation from 'geolocation';
+import axios from "axios";
 
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
+
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(showPosition);
+//   } else {
+//     console.log("Geolocation is not supported by this browser.");
+//   }
+// }
+
+// function showPosition(position) {
+//   console.log(
+//     "Latitude: " +
+//       position.coords.latitude +
+//       "<br>Longitude: " +
+//       position.coords.longitude
+//   );
+// }
 
 export default class Profile extends Component {
   constructor(props) {
@@ -20,7 +38,8 @@ export default class Profile extends Component {
       userReady: false,
       currentUser: { username: "" },
       userType: "User",
-      self:{lat: "",lng: ""}
+      self:{},
+      donorList: [], //To be checked
     };
   }
   getUserGeolocation(e){
@@ -33,8 +52,7 @@ export default class Profile extends Component {
     })
     return self;
   }
-  
-  
+
   componentDidMount(props) {
     const currentUser = AuthService.getCurrentUser();
     
@@ -57,28 +75,23 @@ export default class Profile extends Component {
     this.setState({
       self: this.getUserGeolocation()
     });
-    // console.log("hello",this.getUserGeolocation());   
+    let authheader = authHeader();
+    axios.get("https://api.c19plasma.ml/api/donorsList", { headers: authheader })
+    .then((response)=>{
+      this.setState({
+        donorList: response.data.data
+      })
+    });
+    // console.log("hello",this.getUserGeolocation());  
   }
   
+  
   render() {
+  console.log(">>>>>>List of donars:",this.state.donorList);
+
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-    
-    const others = [
-      {
-      lat:12.12000,
-      lng:76.68000
-    },
-    {
-      lat:19.15500,
-      lng:	72.84999
-    },
-    {
-      lat:26.54045,
-      lng:88.71939
-    }
-    ];
     return (
       <div>
         <Header />
@@ -114,7 +127,9 @@ export default class Profile extends Component {
                     {/* <strong>Email:</strong> {currentUser.email} */}
                     This is contact Person's Email@gmail.com
                   </p>
-                  <button className="contactbutton">Contact</button>
+                  <button className="contactbutton">
+                    Contact
+                  </button>
                 </div>
               </div>
               <div className="profile__map">
@@ -125,7 +140,7 @@ export default class Profile extends Component {
                   center={mapCenter}
                   zoom={mapZoom}
                   selfCord={this.state.self}
-                  otherCord={others}
+                  donorList={this.state.donorList}
                 />
               </div>
             </div>
