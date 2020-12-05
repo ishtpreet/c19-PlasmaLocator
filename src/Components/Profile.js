@@ -59,7 +59,7 @@ export default class Profile extends Component {
     if (!currentUser) this.setState({ redirect: "/" });
     if (localStorage.getItem('donor')) this.setState({userType: "Donor"})
     console.log(this.state.userType);
-    if (true){
+    if (localStorage.getItem('donor')){
       let aheader = authHeader();
       AuthService.getDonorDetails(aheader)
       .then((res)=>{

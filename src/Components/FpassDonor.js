@@ -75,7 +75,7 @@ export default class FpassDonor extends Component {
           this.setState({
             successful: true,
             loading: false,
-            message: "Password Updated Successfully!",
+            message: "Password Updated Successfully! Please Proceed with login.",
           });
           console.log(data);
           // this.context.router.push("/profile")
@@ -114,7 +114,7 @@ export default class FpassDonor extends Component {
       <div>
         <Header />
         <div className="col-md-12">
-          <div className="card card-container">
+          <div className="card card-container-login">
             <Form
               onSubmit={this.handleForgotPassword}
               ref={(c) => {

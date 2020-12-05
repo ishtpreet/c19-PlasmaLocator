@@ -30,9 +30,9 @@
 }
 
 .header__logo {
-  height: 65px;
-  padding-right: 20px;
-  padding-bottom: 20px;
+  height: 95px;
+  /* padding-left: 20px; */
+  /* padding-bottom: 20px; */
 }
 
 .header__right__login :hover {
