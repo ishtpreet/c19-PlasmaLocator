@@ -36,6 +36,7 @@ function NotificationList(){
             document.getElementById(id).innerHTML = "Yes Please";
             setReloadData(Math.random());
             console.log(response.data.message)
+            console.log(isLoading)
         })
     }
     return (
