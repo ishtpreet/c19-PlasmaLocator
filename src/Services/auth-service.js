@@ -2,15 +2,14 @@ import axios from "axios";
 
 const API_URL = "https://api.c19plasma.ml/api/auth/";
 
-
 class AuthService {
   login(username, password) {
     return axios
       .post(API_URL + "signin", {
         username,
-        password
+        password,
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
@@ -19,13 +18,13 @@ class AuthService {
       });
   }
   //******************Donor Login*******************
-  donorlogin(username,password) {
+  donorlogin(username, password) {
     return axios
       .post(API_URL + "donor/signin", {
         username,
-        password
+        password,
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.accessToken) {
           localStorage.setItem("donor", JSON.stringify(response.data)); //Name to be changed
         }
@@ -45,7 +44,7 @@ class AuthService {
       email,
       password,
       city,
-      phone
+      phone,
     });
   }
   //*****Donor Register **********
@@ -57,64 +56,89 @@ class AuthService {
       password,
       city,
       phone,
-      bloodGroup
+      bloodGroup,
     });
   }
   forgetpassword(email) {
-    return axios.get("https://api.c19plasma.ml/fpass/" + email)
-    .then(response =>{
-      return response.data;
-    })
+    return axios
+      .get("https://api.c19plasma.ml/fpass/" + email)
+      .then((response) => {
+        return response.data;
+      });
   }
   forgetpasswordDonor(email) {
-    return axios.get("https://api.c19plasma.ml/donor/fpass/" + email)
-    .then(response =>{
-      return response.data;
-    })
+    return axios
+      .get("https://api.c19plasma.ml/donor/fpass/" + email)
+      .then((response) => {
+        return response.data;
+      });
   }
 
   forgotpassword(password, token) {
-    return axios.post('https://api.c19plasma.ml/token', {
+    return axios.post("https://api.c19plasma.ml/token", {
       token,
-      password
+      password,
     });
   }
   forgotpasswordDonor(password, token) {
-    return axios.post('https://api.c19plasma.ml/donor/token', {
+    return axios.post("https://api.c19plasma.ml/donor/token", {
       token,
-      password
+      password,
     });
   }
 
   getCurrentUser() {
-    if(localStorage.getItem('user'))
-      return JSON.parse(localStorage.getItem('user'));
-    else
-      return JSON.parse(localStorage.getItem('donor'));
+    if (localStorage.getItem("user"))
+      return JSON.parse(localStorage.getItem("user"));
+    else return JSON.parse(localStorage.getItem("donor"));
+  }
+  getDonorDetails(header) {
+    let config = { headers: header };
+    return axios.get("https://api.c19plasma.ml/api/test", config);
+  }
+  updateDonorDetails(
+    header,
+    dateDetected,
+    recoveredOn,
+    lastTested,
+    currentStatus
+  ) {
+    let config = { headers: header };
+    return axios.post(
+      API_URL + "donor/setupProfile",
+      {
+        dateDetected,
+        recoveredOn,
+        lastTested,
+        currentStatus,
+      },
+      config
+    );
+  }
+  usersRequests(header) {
+    let config = { headers: header };
+    return axios.get(API_URL + "notification/retrieve", config);
+  }
+  resolveRequest(header, requestId) {
+    let config = { headers: header };
+    return axios.post(
+      API_URL + "notification/resolve",
+      {
+        requestId,
+      },
+      config
+    );
+  }
 
-  }
-  getDonorDetails(header){
-    let config = {headers: header};
-    return axios.get('https://api.c19plasma.ml/api/test', config);
-  }
-  updateDonorDetails(header, dateDetected, recoveredOn, lastTested, currentStatus){
-    let config = {headers: header};
-    return axios.post(API_URL+ "donor/setupProfile", {
-      dateDetected,
-      recoveredOn,
-      lastTested,
-      currentStatus
-    },config)
-  }
-  usersRequests(header){
-    let config = {headers: header};
-    return axios.get(API_URL+'notification/retrieve', config);
-  }
-  resolveRequest(header,requestId){
-    let config = {headers: header};
-    return axios.post(API_URL+'notification/resolve', {
-      requestId
-    },config)  
+  createRequest(header, donor_id) {
+    let config = { headers: header };
+    return axios.post(
+      API_URL + "notification/create",
+      {
+        donor_id,
+      },
+      config
+    );
   }
 }
 

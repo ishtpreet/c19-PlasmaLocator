@@ -24,39 +24,20 @@ function NotificationList(){
             setNotification(response.data.notifications);
         })
     },[reloadData]);
-    // useEffect(()=>{
-    //     if (isLoading && notificationId !== '') {
-    //         let AuthHeader = authHeader();
-    //         AuthService.resolveRequest(AuthHeader, notificationId).then((response) => {
-    //             setLoading(false);
-    //             console.log(response.data.message);
-    //         });
-    //       }
-    //     }, [isLoading]);
     function resolveNotification(id, e){
         setLoading(true)
         e.preventDefault();
+        document.getElementById(id).innerHTML = "Please Wait...";
         console.log(id);
         let AuthHeader = authHeader();
         AuthService.resolveRequest(AuthHeader, id)
         .then((response)=>{
             setLoading(false)
+            document.getElementById(id).innerHTML = "Yes Please";
             setReloadData(Math.random());
             console.log(response.data.message)
         })
     }
-    // const handleClick = (e)=>{
-
-    //     setLoading(true);
-
-    //     let AuthHeader = authHeader();
-    //         AuthService.resolveRequest(AuthHeader, e).then((response) => {
-    //             setLoading(false);
-    //             console.log(response.data.message);
-    //         });
-
-    // };
-    // console.log("Notification",notifications);
     return (
         <div>
         <Header />
@@ -76,9 +57,9 @@ function NotificationList(){
               <Card.Text>
                 User with User id #{notification.user_id} and email {notification.user_email} sent u a request to share your contact details.<br/> Are you Willing to share?
               </Card.Text>
-              <Button variant="primary"
+              <Button id={notification._id} variant="primary"
               onClick={(e) => resolveNotification(notification._id, e)}
-              >{isLoading ? 'Please Wait...' : 'Yes Please'}
+              >Yes Please
               </Button>
               {/* <button onClick={(e) => resolveNotification(notification._id, e)}>Yes Please</button> */}
             </Card.Body>
