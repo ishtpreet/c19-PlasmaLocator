@@ -49,6 +49,12 @@ class Header extends Component {
           </div>
           {currentUser ? (
             <div className="navbar-nav ml-auto">
+              {localStorage.getItem('donor') ?
+              
+              (<li className='nav-item'>
+                <Link to={"/requests"} className="nav-link">Requests</Link>
+              </li>) : null
+            }
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
                   {currentUser.username}

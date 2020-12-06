@@ -27,6 +27,7 @@ import LoginDonor from '../src/Components/LoginDonor';
 import ForgetPasswordDonor from '../src/Components/ForgetPasswordDonor';
 import FpassDonor from '../src/Components/FpassDonor';
 import SetupProfile from '../src/Components/SetupProfile';
+import NotificationList from './Components/NotificationsList';
 
 
 function App() {
@@ -115,6 +116,9 @@ function App() {
              </Route>
              <Route path="/donor/login">
                <LoginDonor />
+             </Route>
+             <Route path="/requests">
+               <NotificationList />
              </Route>
              <Route path="/signup">
                <Signup />

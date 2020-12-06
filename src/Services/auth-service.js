@@ -106,6 +106,16 @@ class AuthService {
       currentStatus
     },config)
   }
+  usersRequests(header){
+    let config = {headers: header};
+    return axios.get(API_URL+'notification/retrieve', config);
+  }
+  resolveRequest(header,requestId){
+    let config = {headers: header};
+    return axios.post(API_URL+'notification/resolve', {
+      requestId
+    },config)  
+  }
 }
 
 export default new AuthService();

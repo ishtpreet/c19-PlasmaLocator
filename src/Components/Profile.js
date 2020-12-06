@@ -12,23 +12,6 @@ import axios from "axios";
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
 
-// function getLocation() {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(showPosition);
-//   } else {
-//     console.log("Geolocation is not supported by this browser.");
-//   }
-// }
-
-// function showPosition(position) {
-//   console.log(
-//     "Latitude: " +
-//       position.coords.latitude +
-//       "<br>Longitude: " +
-//       position.coords.longitude
-//   );
-// }
-
 export default class Profile extends Component {
   constructor(props) {
     super(props);
