@@ -1,13 +1,12 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import ProfileMap from "./ProfileMap.js";
 import "../Css/Profile.css";
 import { Redirect } from "react-router-dom";
 import AuthService from "../Services/auth-service";
 import Header from "./Header";
 import authHeader from "../Services/auth-header";
-import geolocation from 'geolocation';
+import geolocation from "geolocation";
 import axios from "axios";
-
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
@@ -15,62 +14,65 @@ const mapZoom = 5;
 export default class Profile extends Component {
   constructor(props) {
     super(props);
-    this.getUserGeolocation = this.getUserGeolocation.bind(this);    
+    this.getUserGeolocation = this.getUserGeolocation.bind(this);
     this.state = {
       redirect: null,
       userReady: false,
       currentUser: { username: "" },
       userType: "User",
-      self:{},
+      self: {},
       donorList: [], //To be checked
     };
   }
-  getUserGeolocation(e){
-    let self = {lat: "", lng: ""};
+  getUserGeolocation(e) {
+    let self = { lat: "", lng: "" };
     geolocation.getCurrentPosition(function (err, position) {
-      if (err) throw err
-      console.log("User Lat and lng are "+position.coords.latitude+" "+position.coords.longitude);
+      if (err) throw err;
+      console.log(
+        "User Lat and lng are " +
+          position.coords.latitude +
+          " " +
+          position.coords.longitude
+      );
       self.lat = position.coords.latitude;
       self.lng = position.coords.longitude;
-    })
+    });
     return self;
   }
 
   componentDidMount(props) {
     const currentUser = AuthService.getCurrentUser();
-    
+
     if (!currentUser) this.setState({ redirect: "/" });
-    if (localStorage.getItem('donor')) this.setState({userType: "Donor"})
+    if (localStorage.getItem("donor")) this.setState({ userType: "Donor" });
     console.log(this.state.userType);
-    if (localStorage.getItem('donor')){
+    if (localStorage.getItem("donor")) {
       let aheader = authHeader();
-      AuthService.getDonorDetails(aheader)
-      .then((res)=>{
-        if(res.data.first_login === '0'){
-          
+      AuthService.getDonorDetails(aheader).then((res) => {
+        if (res.data.first_login === "0") {
           this.setState({
-            redirect: "/setupProfile"
-          })
+            redirect: "/setupProfile",
+          });
         }
-      })
+      });
     }
-    this.setState({ currentUser: currentUser, userReady: true })
+    this.setState({ currentUser: currentUser, userReady: true });
     this.setState({
-      self: this.getUserGeolocation()
+      self: this.getUserGeolocation(),
     });
     let authheader = authHeader();
-    axios.get("https://api.c19plasma.ml/api/donorsList", { headers: authheader })
-    .then((response)=>{
-      this.setState({
-        donorList: response.data.data
-      })
-    });
-    // console.log("hello",this.getUserGeolocation());  
+    axios
+      .get("https://api.c19plasma.ml/api/donorsList", { headers: authheader })
+      .then((response) => {
+        this.setState({
+          donorList: response.data.data,
+        });
+      });
+    // console.log("hello",this.getUserGeolocation());
   }
-  
-  
+
   render() {
-  console.log(">>>>>>List of donars:",this.state.donorList);
+    console.log(">>>>>>List of donars:", this.state.donorList);
 
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -90,12 +92,10 @@ export default class Profile extends Component {
                     </h3>
                   </header>
                   <p>
-                    {/* <strong>Id:</strong> {currentUser.id} */}
-                    This is my ID
+                    <strong>Id:</strong> {this.state.currentUser.id}
                   </p>
                   <p>
-                    {/* <strong>Email:</strong> {currentUser.email} */}
-                    This is my Email@gmail.com
+                    <strong>Email:</strong> {this.state.currentUser.email}
                   </p>
                 </div>
                 <div className="profile__information__contactinfo">
@@ -110,9 +110,7 @@ export default class Profile extends Component {
                     {/* <strong>Email:</strong> {currentUser.email} */}
                     This is contact Person's Email@gmail.com
                   </p>
-                  <button className="contactbutton">
-                    Contact
-                  </button>
+                  <button className="contactbutton">Contact</button>
                 </div>
               </div>
               <div className="profile__map">
