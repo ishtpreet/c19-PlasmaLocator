@@ -30,6 +30,7 @@ import SetupProfile from "../src/Components/SetupProfile";
 import NotificationList from "./Components/NotificationsList";
 import DonorDashboard from "./Components/Dashboard/DonorDashboard";
 import RecipientDashboard from "./Components/Dashboard/RecipientDashboard";
+import Dashboard from './Components/Dashboard/Dashboard';
 
 function App() {
   //STATES -> how to write variable in react
@@ -139,11 +140,11 @@ function App() {
             <Route path="/setupProfile">
               <SetupProfile />
             </Route>
-            <Route path="/donordashboard">
+            {/* <Route path="/donordashboard">
               <DonorDashboard />
-            </Route>
-            <Route path="/recipientdashboard">
-              <RecipientDashboard />
+            </Route> */}
+            <Route path="/dashboard">
+              <Dashboard />
             </Route>
             <Route path="/">
               <Header />

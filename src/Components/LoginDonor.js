@@ -66,7 +66,7 @@ handleLogin(e) {
             window.location.replace("https://"+window.location.hostname+"/setupProfile");
         // this.context.router.push("/profile")
         else
-        window.location.replace("https://"+window.location.hostname+"/profile");
+        window.location.replace("https://"+window.location.hostname+"/dashboard");
         // this.history.push("/profile")
         //  window.location.reload();
       },

@@ -56,7 +56,7 @@ class Header extends Component {
               </li>) : null
             }
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
+                <Link to={"/dashboard"} className="nav-link">
                   {currentUser.username}
                 </Link>
               </li>
