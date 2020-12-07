@@ -1,0 +1,39 @@
+.recipientdashboard {
+  /* display: flex; */
+}
+
+.recipientdashboard__information {
+  display: flex;
+}
+.recipientdashboard__information__userinfo {
+  padding-right: 20px;
+  width: 50%;
+}
+
+.recipientdashboard__information__contactinfo {
+  width: 50%;
+}
+
+.recipientdashboard_contactbutton {
+    place-self: center,center;
+}
+
+.donordashboard {
+  /* display: flex; */
+}
+
+.donordashboard__information {
+  display: flex;
+}
+.donordashboard__information__userinfo {
+  padding-right: 20px;
+  width: 100%;
+}
+
+.donordashboard__information__contactinfo {
+  width: 50%;
+}
+
+.donordashboard_contactbutton {
+    place-self: center,center;
+}

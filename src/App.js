@@ -20,15 +20,16 @@ import Table from "../src/Components/Table";
 import { sortData } from "./util";
 import "leaflet/dist/leaflet.css";
 import LineGraph from "./Components/LineGraph";
-import ForgetPassword from './Components/ForgetPassword';
-import Fpass from './Components/Fpass';
-import SignupDonor from '../src/Components/SignupDonor';
-import LoginDonor from '../src/Components/LoginDonor';
-import ForgetPasswordDonor from '../src/Components/ForgetPasswordDonor';
-import FpassDonor from '../src/Components/FpassDonor';
-import SetupProfile from '../src/Components/SetupProfile';
-import NotificationList from './Components/NotificationsList';
-
+import ForgetPassword from "./Components/ForgetPassword";
+import Fpass from "./Components/Fpass";
+import SignupDonor from "../src/Components/SignupDonor";
+import LoginDonor from "../src/Components/LoginDonor";
+import ForgetPasswordDonor from "../src/Components/ForgetPasswordDonor";
+import FpassDonor from "../src/Components/FpassDonor";
+import SetupProfile from "../src/Components/SetupProfile";
+import NotificationList from "./Components/NotificationsList";
+import DonorDashboard from "./Components/Dashboard/DonorDashboard";
+import RecipientDashboard from "./Components/Dashboard/RecipientDashboard";
 
 function App() {
   //STATES -> how to write variable in react
@@ -101,36 +102,51 @@ function App() {
   return (
     <div className="app">
       <div className="app__header">
-         <BrowserRouter>
-         <Switch>
-           <Route path="/forgetpass">
-             <ForgetPassword />
-           </Route>
-           <Route path="/donor/forgetpass">
-             <ForgetPasswordDonor />
-           </Route>
-           <Route path="/forgotpass/:token"  render={(props) => <Fpass {...props} />} />
-           <Route path="/donor/forgotpass/:token"  render={(props) => <FpassDonor {...props} />} />
-             <Route path="/login">
-               <Login />
-             </Route>
-             <Route path="/donor/login">
-               <LoginDonor />
-             </Route>
-             <Route path="/requests">
-               <NotificationList />
-             </Route>
-             <Route path="/signup">
-               <Signup />
-             </Route>
-             <Route path="/donor/signup">
-               <SignupDonor />
-             </Route>
-             <Route path="/profile"><Profile/></Route>
-             <Route path='/setupProfile'><SetupProfile/></Route>
-             <Route path="/">
-               {/*Header */}
-               <Header />
+        <BrowserRouter>
+          <Switch>
+            <Route path="/forgetpass">
+              <ForgetPassword />
+            </Route>
+            <Route path="/donor/forgetpass">
+              <ForgetPasswordDonor />
+            </Route>
+            <Route
+              path="/forgotpass/:token"
+              render={(props) => <Fpass {...props} />}
+            />
+            <Route
+              path="/donor/forgotpass/:token"
+              render={(props) => <FpassDonor {...props} />}
+            />
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/donor/login">
+              <LoginDonor />
+            </Route>
+            <Route path="/requests">
+              <NotificationList />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/donor/signup">
+              <SignupDonor />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/setupProfile">
+              <SetupProfile />
+            </Route>
+            <Route path="/donordashboard">
+              <DonorDashboard />
+            </Route>
+            <Route path="/recipientdashboard">
+              <RecipientDashboard />
+            </Route>
+            <Route path="/">
+              <Header />
               <div className="app__section">
                 <div className="app__left">
                   {/* Title = select input dropdown */}
