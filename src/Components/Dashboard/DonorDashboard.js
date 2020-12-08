@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProfileMap from "../ProfileMap.js";
+import ProfileMapDonor from "../ProfileMapDonor";
 import "../../Css/Profile.css";
 import { Redirect } from "react-router-dom";
 import AuthService from "../../Services/auth-service";
@@ -62,7 +62,7 @@ export default class DonorDashboard extends Component {
     });
     let authheader = authHeader();
     axios
-      .get("https://api.c19plasma.ml/api/donorsList", { headers: authheader }) // need an API to fetch list of recipient who have requested for plasma.
+      .get("https://api.c19plasma.ml/api/auth/userLocation", { headers: authheader }) // need an API to fetch list of recipient who have requested for plasma.
       .then((response) => {
         this.setState({
           donorList: response.data.data,
@@ -103,7 +103,7 @@ export default class DonorDashboard extends Component {
                 {/* self : lat and longitude of the person
                     others : array of lat and logs of other people.
                 */}
-                <ProfileMap
+                <ProfileMapDonor
                   center={mapCenter}
                   zoom={mapZoom}
                   selfCord={this.state.self}
