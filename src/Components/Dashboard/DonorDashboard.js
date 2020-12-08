@@ -21,7 +21,7 @@ export default class DonorDashboard extends Component {
       currentUser: { username: "" },
       userType: "User",
       self: {},
-      donorList: [], //To be checked
+      userList: [], //To be checked
     };
   }
   getUserGeolocation(e) {
@@ -65,14 +65,14 @@ export default class DonorDashboard extends Component {
       .get("https://api.c19plasma.ml/api/auth/userLocation", { headers: authheader }) // need an API to fetch list of recipient who have requested for plasma.
       .then((response) => {
         this.setState({
-          donorList: response.data.data,
+          userList: response.data.data,
         });
       });
     // console.log("hello",this.getUserGeolocation());
   }
 
   render() {
-    console.log(">>>>>>List of donars:", this.state.donorList);
+    console.log(">>>>>>List of donars:", this.state.userList);
 
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -107,7 +107,7 @@ export default class DonorDashboard extends Component {
                   center={mapCenter}
                   zoom={mapZoom}
                   selfCord={this.state.self}
-                  donorList={this.state.donorList}
+                  donorList={this.state.userList}
                 />
               </div>
             </div>
