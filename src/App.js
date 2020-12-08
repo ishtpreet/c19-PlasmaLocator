@@ -28,8 +28,6 @@ import ForgetPasswordDonor from "../src/Components/ForgetPasswordDonor";
 import FpassDonor from "../src/Components/FpassDonor";
 import SetupProfile from "../src/Components/SetupProfile";
 import NotificationList from "./Components/NotificationsList";
-import DonorDashboard from "./Components/Dashboard/DonorDashboard";
-import RecipientDashboard from "./Components/Dashboard/RecipientDashboard";
 import Dashboard from './Components/Dashboard/Dashboard';
 
 function App() {

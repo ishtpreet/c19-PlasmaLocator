@@ -1,6 +1,6 @@
-.recipientdashboard {
-  /* display: flex; */
-}
+/* .recipientdashboard {
+  /* display: flex; 
+} */
 
 .recipientdashboard__information {
   display: flex;
@@ -15,12 +15,12 @@
 }
 
 .recipientdashboard_contactbutton {
-    place-self: center,center;
+  place-self: center, center;
 }
 
-.donordashboard {
-  /* display: flex; */
-}
+/* .donordashboard {
+  /* display: flex; 
+} */
 
 .donordashboard__information {
   display: flex;
@@ -35,5 +35,5 @@
 }
 
 .donordashboard_contactbutton {
-    place-self: center,center;
+  place-self: center, center;
 }
