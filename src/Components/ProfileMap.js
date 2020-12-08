@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Leaflet from "leaflet";
 import { Map as LeafletMap, TileLayer, Popup } from "react-leaflet";
 import "../Css/ProfileMap.css";
 import Button from "react-bootstrap/Button";
 import { Marker } from "react-leaflet";
+import { Spinner } from 'react-bootstrap';
 import "leaflet/dist/leaflet.css";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import authHeader from "../Services/auth-header";
 import AuthService from "../Services/auth-service";
 
 function ProfileMap({ center, zoom, selfCord, donorList }) {
+  const [spinnerActive, setSpinnerActive] = useState(false);
   console.log("Hey this is my Coordinates", selfCord.lat, selfCord.lng);
   // console.log(">>>>>",otherCord);
   function sendNotification(donor_id, e) {
     e.preventDefault();
+    setSpinnerActive(true)
     console.log("Id of Donor clicking", donor_id);
     let authheader = authHeader();
     AuthService.createRequest(authheader, donor_id).then((response) => {
+      setSpinnerActive(false)
       console.log("Response message is>>>", response.data.message);
     });
   }
@@ -64,7 +68,7 @@ function ProfileMap({ center, zoom, selfCord, donorList }) {
               <Popup>
                 <p>Hi I'm {donor.username}, Donor </p>
                 <Button onClick={(e) => sendNotification(donor._id, e)}>
-                  Contact
+                { spinnerActive ? <Spinner animation='border'/> : 'Contact' }
                 </Button>
               </Popup>
             </Marker>
