@@ -21,6 +21,8 @@ function ProfileMap({ center, zoom, selfCord, donorList }) {
     let authheader = authHeader();
     AuthService.createRequest(authheader, donor_id).then((response) => {
       setSpinnerActive(false)
+      document.getElementById(donor_id).innerHTML = 'Sent ✔'
+      document.getElementById(donor_id).disabled = true;
       console.log("Response message is>>>", response.data.message);
     });
   }
@@ -67,9 +69,7 @@ function ProfileMap({ center, zoom, selfCord, donorList }) {
             <Marker position={[donor.lat, donor.lng]} icon={YourMarker}>
               <Popup>
                 <p>Hi I'm {donor.username}, Donor </p>
-                <Button onClick={(e) => sendNotification(donor._id, e)}>
-                { spinnerActive ? <Spinner animation='border'/> : 'Contact' }
-                </Button>
+               {spinnerActive ? <Spinner animation='border'/> : <Button id={donor._id} onClick={(e) => sendNotification(donor._id, e)}>Contact</Button>} 
               </Popup>
             </Marker>
           ))}
