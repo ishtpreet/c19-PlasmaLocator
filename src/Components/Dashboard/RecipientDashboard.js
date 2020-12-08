@@ -8,7 +8,6 @@ import Header from "../Header";
 import authHeader from "../../Services/auth-header";
 import geolocation from "geolocation";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
@@ -99,20 +98,6 @@ export default class RecipientDashboard extends Component {
                   <p>
                     <strong>Email:</strong> {this.state.currentUser.email}
                   </p>
-                </div>
-                <div className="recipientdashboard__information__contactinfo">
-                  <header className="jumbotron">
-                    <h3>Contact Info</h3>
-                  </header>
-                  <p>
-                    {/* <strong>Id:</strong> {currentUser.id} */}
-                    This is contact person's ID
-                  </p>
-                  <p>
-                    {/* <strong>Email:</strong> {currentUser.email} */}
-                    This is contact Person's Email@gmail.com
-                  </p>
-                  <Button className="recipientdashboard_contactbutton">Contact</Button>
                 </div>
               </div>
               <div className="profile__map">

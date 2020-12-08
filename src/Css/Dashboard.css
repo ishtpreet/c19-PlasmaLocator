@@ -6,8 +6,9 @@
   display: flex;
 }
 .recipientdashboard__information__userinfo {
-  padding-right: 20px;
-  width: 50%;
+  align-self: center;
+  padding-top: 20px;
+  width: 100vw;
 }
 
 .recipientdashboard__information__contactinfo {
@@ -26,8 +27,9 @@
   display: flex;
 }
 .donordashboard__information__userinfo {
-  padding-right: 20px;
-  width: 100%;
+  align-self: center;
+  padding-top: 20px;
+  width: 100vw;
 }
 
 .donordashboard__information__contactinfo {

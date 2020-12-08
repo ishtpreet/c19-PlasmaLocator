@@ -29,6 +29,7 @@ import FpassDonor from "../src/Components/FpassDonor";
 import SetupProfile from "../src/Components/SetupProfile";
 import NotificationList from "./Components/NotificationsList";
 import Dashboard from './Components/Dashboard/Dashboard';
+import Quiz from './Components/Quiz';
 
 function App() {
   //STATES -> how to write variable in react
@@ -119,6 +120,9 @@ function App() {
             />
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/quiz">
+              <Quiz />
             </Route>
             <Route path="/donor/login">
               <LoginDonor />
