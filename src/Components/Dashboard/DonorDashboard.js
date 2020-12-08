@@ -62,17 +62,19 @@ export default class DonorDashboard extends Component {
     });
     let authheader = authHeader();
     axios
-      .get("https://api.c19plasma.ml/api/auth/userLocation", { headers: authheader }) // need an API to fetch list of recipient who have requested for plasma.
+      .get("https://api.c19plasma.ml/api/auth/notification/userLocation", {
+        headers: authheader,
+      }) // need an API to fetch list of recipient who have requested for plasma.
       .then((response) => {
         this.setState({
-          userList: response.data.data,
+          userList: response.data.notification,
         });
       });
     // console.log("hello",this.getUserGeolocation());
   }
 
   render() {
-    console.log(">>>>>>List of donars:", this.state.userList);
+    console.log(">>>>>>List of Users:", this.state.userList);
 
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -88,15 +90,21 @@ export default class DonorDashboard extends Component {
                 <div className="donordashboard__information__userinfo">
                   <header className="jumbotron">
                     <h3>
-                      <strong></strong> Profile
+                      <strong>{this.state.currentUser.username}</strong>
                     </h3>
                   </header>
-                  <p>
-                    <strong>Id:</strong> {this.state.currentUser.id}
-                  </p>
-                  <p>
-                    <strong>Email:</strong> {this.state.currentUser.email}
-                  </p>
+                  <table>
+                    <tr>
+                      <td>
+                        <strong>Email:</strong>
+                      </td>
+                      <td>{this.state.currentUser.email}</td>
+                    </tr>
+                    <tr>
+                      <td>Pending Request:</td>
+                      <td>{this.state.userList.length}</td>
+                    </tr>
+                  </table>
                 </div>
               </div>
               <div className="profile__map">
@@ -107,7 +115,7 @@ export default class DonorDashboard extends Component {
                   center={mapCenter}
                   zoom={mapZoom}
                   selfCord={this.state.self}
-                  donorList={this.state.userList}
+                  userList={this.state.userList}
                 />
               </div>
             </div>
