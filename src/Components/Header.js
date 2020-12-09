@@ -68,6 +68,9 @@ class Header extends Component {
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
+              <li className='nav-item'>
+                <a href='/quiz' className='nav-link'>C-19 Self Assessment</a>
+              </li>
               <li className="nav-item">
               <NavDropdown title="Donor" id="nav-dropdown-Donor">
         <NavDropdown.Item className='customNavItem'><NavLink className="customNavLink" to={'/donor/login'}>Login</NavLink></NavDropdown.Item>

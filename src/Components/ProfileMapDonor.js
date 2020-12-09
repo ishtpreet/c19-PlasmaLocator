@@ -64,7 +64,7 @@ function ProfileMapDonor({ center, zoom, selfCord, userList }) {
           </TileLayer>
           <Marker position={[selfCord.lat, selfCord.lng]} icon={MyMarker}>
             <Popup>
-              <p> I am the info about User</p>
+              <p>You are here.</p>
             </Popup>
           </Marker>
           {userList.map((user) => (
