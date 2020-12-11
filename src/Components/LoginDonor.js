@@ -1,5 +1,5 @@
 import React, { Component } from "react";
- import { Link } from "react-router-dom";
+ import { Link, withRouter } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -19,7 +19,7 @@ const required = value => {
   }
 };
 
-export default class LoginDonor extends Component {
+class LoginDonor extends Component {
 constructor(props) {
         super(props);
   this.handleLogin = this.handleLogin.bind(this);
@@ -63,10 +63,12 @@ handleLogin(e) {
           // window.location.replace("http://")
             // console.log("First Login "+response.first_login)
             if(response.first_login === '0')
-            window.location.replace("https://"+window.location.hostname+"/setupProfile");
+            this.props.history.push("/setupProfile")
+            // window.location.replace("https://"+window.location.hostname+"/setupProfile");
         // this.context.router.push("/profile")
         else
-        window.location.replace("https://"+window.location.hostname+"/dashboard");
+        this.props.history.push("/dashboard")
+        // window.location.replace("https://"+window.location.hostname+"/dashboard");
         // this.history.push("/profile")
         //  window.location.reload();
       },
@@ -165,3 +167,4 @@ render() {
   );
 }
 }
+export default withRouter(LoginDonor);
