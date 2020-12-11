@@ -10,7 +10,29 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import authHeader from "../Services/auth-header";
 import AuthService from "../Services/auth-service";
 
-function ProfileMap({ center, zoom, selfCord, donorList }) {
+function ProfileMap({ center, zoom, selfCord, donorList, distance }) {
+  // ***********Helper Functions***********
+  function toRadians(deg) {
+    return (deg * 3.14) / 180;
+  }
+  function calculateDistance(selfCord, user) {
+    let lat1 = toRadians(selfCord.lat);
+    let lng1 = toRadians(selfCord.lng);
+    let lat2 = toRadians(user.lat);
+    let lng2 = toRadians(user.lng);
+
+    let dlat = Math.abs(lat1 - lat2);
+    let dlng = Math.abs(lng1 - lng2);
+
+    let ans =
+      Math.pow(Math.sin(dlat / 2), 2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlng / 2), 2);
+
+    ans = 2 * Math.asin(Math.sqrt(ans));
+    ans = ans * 6371;
+    return Math.floor(ans);
+  }
+  //**************** */ Helper Function Ends ****************
   const [spinnerActive, setSpinnerActive] = useState(false);
   console.log("Hey this is my Coordinates", selfCord.lat, selfCord.lng);
   // console.log(">>>>>",otherCord);
@@ -62,14 +84,15 @@ function ProfileMap({ center, zoom, selfCord, donorList }) {
           </TileLayer>
           <Marker position={[selfCord.lat, selfCord.lng]} icon={MyMarker}>
             <Popup>
-              <p> I am the info about User</p>
+              <p> You are here</p>
             </Popup>
           </Marker>
           {donorList.map((donor) => (
+          calculateDistance(selfCord, donor) < distance && 
             <Marker position={[donor.lat, donor.lng]} icon={YourMarker}>
               <Popup>
-                <p>Hi I'm {donor.username}, Donor </p>
-               {spinnerActive ? <Spinner animation='border'/> : <Button id={donor._id} onClick={(e) => sendNotification(donor._id, e)}>Contact</Button>} 
+                <p>Hi I'm <strong>{donor.username}</strong>, Donor <br />BloodGroup: <strong>{donor.bloodGroup}</strong> <br />I'm <strong>{calculateDistance(selfCord, donor)} km</strong> away from you.</p>
+               {spinnerActive ? <Spinner animation='border'/> : <Button variant='dark' id={donor._id} onClick={(e) => sendNotification(donor._id, e)}>Contact</Button>} 
               </Popup>
             </Marker>
           ))}

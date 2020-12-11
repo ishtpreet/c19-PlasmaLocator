@@ -8,6 +8,9 @@ import Header from "../Header";
 import authHeader from "../../Services/auth-header";
 import geolocation from "geolocation";
 import axios from "axios";
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+import {Col, Row} from 'react-bootstrap';
+import RangeSlider from 'react-bootstrap-range-slider';
 
 const mapCenter = { lat: 28.6139, lng: 77.209 };
 const mapZoom = 5;
@@ -23,6 +26,7 @@ export default class RecipientDashboard extends Component {
       userType: "User",
       self: {},
       donorList: [], //To be checked
+      sliderValue: '50'
     };
   }
   getUserGeolocation(e) {
@@ -89,15 +93,34 @@ export default class RecipientDashboard extends Component {
                 <div className="recipientdashboard__information__userinfo">
                   <header className="jumbotron">
                     <h3>
-                      <strong></strong> Profile
+                      <strong></strong>Recipient's Profile
                     </h3>
-                  </header>
-                  <p>
-                    <strong>Id:</strong> {this.state.currentUser.id}
-                  </p>
-                  <p>
+                  <Row style={{marginTop: '20px'}}>
+                  <Col>
+                    <strong>Username:</strong> {this.state.currentUser.username}
+                  </Col>
+                  <Col>
                     <strong>Email:</strong> {this.state.currentUser.email}
-                  </p>
+                  </Col>
+                  </Row>
+                  </header>
+                  <Row>
+                  <h3>Range: (in km)</h3>
+                  <Col>
+                  <RangeSlider
+                    size = 'lg'
+                    min = '25'
+                    max = '1500'
+                    step = '25'
+                    variant = 'dark'
+                    value={this.state.sliderValue}
+                    onChange={changeEvent => this.setState({sliderValue:changeEvent.target.value})}
+                    tooltip = 'on'
+                    tooltipPlacement = 'top'
+                    tooltipLabel = {toopTilLabel => this.state.sliderValue+' km'}
+                  />
+                  </Col>
+                  </Row>
                 </div>
               </div>
               <div className="profile__map">
@@ -109,6 +132,7 @@ export default class RecipientDashboard extends Component {
                   zoom={mapZoom}
                   selfCord={this.state.self}
                   donorList={this.state.donorList}
+                  distance = {this.state.sliderValue}
                 />
               </div>
             </div>

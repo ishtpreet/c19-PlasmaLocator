@@ -1,14 +1,18 @@
 .quiz-app {
-    font-family: "Verdana", cursive, sans-serif;
+    font-family: inherit;
     color: #ffffff;
     align-self: center;
-    margin-top: 100px;
-    margin-left: 320px;
+    margin-top: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
   
   .quiz-app {
     background-color: #252d4a;
-    width: 450px;
+    width: 80%;
     min-height: 200px;
     height: min-content;
     border-radius: 15px;
@@ -39,7 +43,9 @@
   }
   
   .question-text {
+    padding-bottom: 50px;
     margin-bottom: 12px;
+    font-size: 28px;
   }
   
   .timer-text {
