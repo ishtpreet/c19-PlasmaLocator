@@ -61,15 +61,15 @@ class Header extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/home" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
+                <Link to="/home" className="nav-link" onClick={this.logOut}>
+                  Log Out
+                </Link>
               </li>
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
               <li className='nav-item'>
-                <a href='/quiz' className='nav-link'>C-19 Self Assessment</a>
+                <Link to='/quiz' className='nav-link'>C-19 Self Assessment</Link>
               </li>
               <li className="nav-item">
               <NavDropdown title="Donor" id="nav-dropdown-Donor">
