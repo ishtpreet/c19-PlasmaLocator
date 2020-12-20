@@ -41,6 +41,9 @@ class Header extends Component {
             <img className="header__logo" src={logo} alt="" />
           </div>
           <div className="navbar-nav mr-auto">
+            <li className='nav-item'>
+                <Link to='/covid' className='nav-link'>Covid-19</Link>
+              </li>
             <li className="nav-item">
               <Link to={"/"} className="nav-link" activeClassName="active">
                 C-19 Plasma Locator
@@ -49,12 +52,18 @@ class Header extends Component {
           </div>
           {currentUser ? (
             <div className="navbar-nav ml-auto">
+              <li className='nav-item'>
+                <Link to='/quiz' className='nav-link'>C-19 Self Assessment</Link>
+              </li>
               {localStorage.getItem('donor') ?
               
               (<li className='nav-item'>
                 <Link to={"/requests"} className="nav-link">Requests</Link>
               </li>) : null
             }
+
+
+
               <li className="nav-item">
                 <Link to={"/dashboard"} className="nav-link">
                   {currentUser.username}

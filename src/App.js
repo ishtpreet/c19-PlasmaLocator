@@ -30,6 +30,7 @@ import SetupProfile from "../src/Components/SetupProfile";
 import NotificationList from "./Components/NotificationsList";
 import Dashboard from './Components/Dashboard/Dashboard';
 import Quiz from './Components/Quiz';
+import Covid from './Components/Covid';
 
 function App() {
   //STATES -> how to write variable in react
@@ -106,6 +107,9 @@ function App() {
           <Switch>
             <Route path="/forgetpass">
               <ForgetPassword />
+            </Route>
+            <Route path="/covid">
+              <Covid />
             </Route>
             <Route path="/donor/forgetpass">
               <ForgetPasswordDonor />

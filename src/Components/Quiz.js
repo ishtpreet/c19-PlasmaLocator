@@ -3,6 +3,8 @@ import '../Css/Quiz.css';
 import Header from './Header';
 import { Container } from 'react-bootstrap'
 import Alert from 'react-bootstrap/Alert';
+import { Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 export default function App() {
 	const questions = [
@@ -97,6 +99,8 @@ export default function App() {
 			{showScore ? (
         <div style={{marginTop: '30px'}}>
 			{danger ? <Alert variant='danger'><Alert.Heading>Self Assessment Result</Alert.Heading>Please call 1075, +91-11-23978046 or email at ncov2019@gmail.com or go directly to your nearest emergency department.</Alert> : <Alert variant='success'><Alert.Heading>Self Assessment Result</Alert.Heading>Your infection risk is low. We recommend that you stay at home to avoid any chance of exposure to the Novel Coronavirus.</Alert>}
+			<Button style={{marginLeft: '38%'}} variant="primary" onClick={()=>{setShowScore(false); setCurrentQuestion(0); }}>Re-Take Quiz</Button>
+			<Link to='/'><Button style={{marginLeft: '10px'}}>Home</Button></Link>
 				</div>
 			) : (
 		<div className='quiz-app'>
