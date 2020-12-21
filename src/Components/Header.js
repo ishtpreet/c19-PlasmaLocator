@@ -38,22 +38,24 @@ class Header extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <div className="navbar-brand">
+            <Link to='/'>
             <img className="header__logo" src={logo} alt="" />
+            </Link>
           </div>
           <div className="navbar-nav mr-auto">
             <li className='nav-item'>
                 <Link to='/covid' className='nav-link'>Covid-19</Link>
               </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/"} className="nav-link" activeClassName="active">
                 C-19 Plasma Locator
               </Link>
-            </li>
+            </li> */}
           </div>
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className='nav-item'>
-                <Link to='/quiz' className='nav-link'>C-19 Self Assessment</Link>
+                <Link to='/quiz' className='nav-link'>Self Assessment</Link>
               </li>
               {localStorage.getItem('donor') ?
               
@@ -78,7 +80,7 @@ class Header extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className='nav-item'>
-                <Link to='/quiz' className='nav-link'>C-19 Self Assessment</Link>
+                <Link to='/quiz' className='nav-link'>Self Assessment</Link>
               </li>
               <li className="nav-item">
               <NavDropdown title="Donor" id="nav-dropdown-Donor">
