@@ -95,7 +95,7 @@ export default class Signup extends Component {
     });
     console.log(event.target.value);
     axios
-      .get("https://api2.c19plasma.ml/cities?State_like=" + event.target.value)
+      .get("https://api2.c19plasma.ml/api/cities?State_like=" + event.target.value)
       .then((data) => {
         console.log(data.data);
         this.setState({
@@ -258,7 +258,7 @@ export default class Signup extends Component {
                         validations={[required]}
                         value={this.state.selectedState}
                       >
-                        <option>---select---</option>
+                        <option>Select a State</option>
                         {this.state.inState &&
                           this.state.inState.statesofIndia.map((k, v) => (
                             <option key={k.key} value={k.name}>
@@ -279,7 +279,7 @@ export default class Signup extends Component {
                           value={this.state.city}
                           onChange={this.selectCity}
                         >
-                          <option defaultChecked disabled>
+                          <option defaultChecked value="">
                             Please Select a City
                           </option>
                           {Object.keys(this.state.cities).map((k, v) => (
