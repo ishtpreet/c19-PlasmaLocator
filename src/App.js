@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   MenuItem,
@@ -103,7 +103,7 @@ function App() {
   return (
     <div className="app">
       <div className="app__header">
-        <BrowserRouter>
+        <HashRouter>
           <Switch>
             <Route path="/forgetpass">
               <ForgetPassword />
@@ -216,7 +216,7 @@ function App() {
               </div>
             </Route>
           </Switch>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </div>
   );
