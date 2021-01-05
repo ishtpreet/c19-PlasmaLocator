@@ -62,6 +62,7 @@ class AuthService {
   forgetpassword(email) {
     return axios
       .get("https://api.c19plasma.ml/fpass/" + email)
+      // .get("https://2lcfuiooj1.execute-api.us-east-1.amazonaws.com/dev/fpass/"+email)
       .then((response) => {
         return response.data;
       });
@@ -69,6 +70,7 @@ class AuthService {
   forgetpasswordDonor(email) {
     return axios
       .get("https://api.c19plasma.ml/donor/fpass/" + email)
+      // .get("https://2lcfuiooj1.execute-api.us-east-1.amazonaws.com/dev/donor/fpass/"+email)
       .then((response) => {
         return response.data;
       });
