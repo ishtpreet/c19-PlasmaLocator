@@ -95,7 +95,7 @@ export default class Signup extends Component {
     });
     console.log(event.target.value);
     axios
-      .get("https://api2.c19plasma.ml/api/cities?State_like=" + event.target.value)
+      .get("https://citystate.herokuapp.com/cities?State_like=" + event.target.value)
       .then((data) => {
         console.log(data.data);
         this.setState({
