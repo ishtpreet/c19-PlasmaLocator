@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://api.c19plasma.ml/api/auth/";
+const API_URL = "https://c19plasma.herokuapp.com/api/auth/";
 
 class AuthService {
   login(username, password) {
@@ -61,7 +61,7 @@ class AuthService {
   }
   forgetpassword(email) {
     return axios
-      .get("https://api.c19plasma.ml/fpass/" + email)
+      .get("https://c19plasma.herokuapp.com/fpass/" + email)
       // .get("https://2lcfuiooj1.execute-api.us-east-1.amazonaws.com/dev/fpass/"+email)
       .then((response) => {
         return response.data;
@@ -69,7 +69,7 @@ class AuthService {
   }
   forgetpasswordDonor(email) {
     return axios
-      .get("https://api.c19plasma.ml/donor/fpass/" + email)
+      .get("https://c19plasma.herokuapp.com/donor/fpass/" + email)
       // .get("https://2lcfuiooj1.execute-api.us-east-1.amazonaws.com/dev/donor/fpass/"+email)
       .then((response) => {
         return response.data;
@@ -77,13 +77,13 @@ class AuthService {
   }
 
   forgotpassword(password, token) {
-    return axios.post("https://api.c19plasma.ml/token", {
+    return axios.post("https://c19plasma.herokuapp.com/token", {
       token,
       password,
     });
   }
   forgotpasswordDonor(password, token) {
-    return axios.post("https://api.c19plasma.ml/donor/token", {
+    return axios.post("https://c19plasma.herokuapp.com/donor/token", {
       token,
       password,
     });
@@ -96,7 +96,7 @@ class AuthService {
   }
   getDonorDetails(header) {
     let config = { headers: header };
-    return axios.get("https://api.c19plasma.ml/api/test", config);
+    return axios.get("https://c19plasma.herokuapp.com/api/test", config);
   }
   updateDonorDetails(
     header,
