@@ -67,7 +67,7 @@ export default class RecipientDashboard extends Component {
     });
     let authheader = authHeader();
     axios
-      .get("https://c19plasma.herokuapp.com/api/donorsList", { headers: authheader })
+      .get("https://c19plasma-backend-production.up.railway.app/api/donorsList", { headers: authheader })
       .then((response) => {
         this.setState({
           donorList: response.data.data,

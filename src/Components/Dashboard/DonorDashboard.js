@@ -62,7 +62,7 @@ export default class DonorDashboard extends Component {
     });
     let authheader = authHeader();
     axios
-      .get("https://c19plasma.herokuapp.com/api/auth/notification/userLocation", {
+      .get("https://c19plasma-backend-production.up.railway.app/api/auth/notification/userLocation", {
         headers: authheader,
       }) // need an API to fetch list of recipient who have requested for plasma.
       .then((response) => {
