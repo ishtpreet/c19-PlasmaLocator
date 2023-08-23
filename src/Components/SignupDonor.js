@@ -97,7 +97,7 @@ export default class SignupDonor extends Component {
     });
     console.log(event.target.value);
     axios
-      .get("https://citystate.herokuapp.com/cities?State_like=" + event.target.value)
+      .get("https://city-state-express-production.up.railway.app/cities?State_like=" + event.target.value)
       .then((data) => {
         console.log(data.data);
         this.setState({
